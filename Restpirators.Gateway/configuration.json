@@ -1,0 +1,81 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/statistics",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44332
+        }
+      ],
+      "UpstreamPathTemplate": "/emergency/statistics",
+      "UpstreamHttpMethod": [ "GET" ],
+      "SwaggerKey": "statistics"
+    },
+    {
+      "DownstreamPathTemplate": "/statistics/{year}/{month}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44332
+        }
+      ],
+      "UpstreamPathTemplate": "/emergency/statistics/{year}/{month}",
+      "UpstreamHttpMethod": [ "GET" ],
+      "SwaggerKey": "statistics"
+    },
+    {
+      "DownstreamPathTemplate": "/statistics/getTimeStatistics",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44332
+        }
+      ],
+      "UpstreamPathTemplate": "/emergency/statistics/getTimeStatistics",
+      "UpstreamHttpMethod": [ "GET" ],
+      "SwaggerKey": "statistics"
+    },
+    {
+      "DownstreamPathTemplate": "/emergencies",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44333
+        }
+      ],
+      "UpstreamPathTemplate": "/emergency/client",
+      "UpstreamHttpMethod": [ "POST" ],
+      "SwaggerKey": "client"
+    }
+  ],
+  "SwaggerEndPoints": [
+    {
+      "Key": "statistics",
+      "Config": [
+        {
+          "Name": "Statistics API",
+          "Version": "v1",
+          "Url": "https://localhost:44332/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "client",
+      "Config": [
+        {
+          "Name": "Client API",
+          "Version": "v1",
+          "Url": "https://localhost:44333/swagger/v1/swagger.json"
+        }
+      ]
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:44315"
+  }
+}
