@@ -1,7 +1,5 @@
-﻿using Restpirators.Analyzer.Enums;
+﻿using Restpirators.Common.Enums;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Restpirators.Analyzer.Models
 {

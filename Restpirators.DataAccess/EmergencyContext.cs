@@ -3,9 +3,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Restpirators.DataAccess
 {
-    class EmergencyContext : DbContext
+    public class EmergencyContext : DbContext
     {
-        public DbSet<Emergency> Blogs { get; set; }
-        public DbSet<EmergencyType> Posts { get; set; }
+        public EmergencyContext(DbContextOptions<EmergencyContext> options) : base(options) { }
+        public DbSet<Emergency> Emergencies { get; set; }
+        public DbSet<EmergencyType> EmergencyTypes { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+        }
     }
 }

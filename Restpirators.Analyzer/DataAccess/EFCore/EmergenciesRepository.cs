@@ -6,6 +6,7 @@ using System.Text;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Bson.Serialization;
+using Restpirators.Common.Enums;
 
 namespace Restpirators.Analyzer.DataAccess.EFCore
 {
@@ -107,10 +108,10 @@ namespace Restpirators.Analyzer.DataAccess.EFCore
             Dictionary<int, List<TimeSpan>> doneToTeamSentStatusTimes = new Dictionary<int, List<TimeSpan>>();
             foreach (var item in result.GroupBy(x => new { x.EmergencyId, x.EmergencyTypeId }))
             {
-                var newStatus = item.Where(x => x.Status == Enums.EmergencyStatus.New).FirstOrDefault();
-                var acceptedStatus = item.Where(x => x.Status == Enums.EmergencyStatus.Accepted).FirstOrDefault();
-                var teamSentStatus = item.Where(x => x.Status == Enums.EmergencyStatus.TeamSent).FirstOrDefault();
-                var doneStatus = item.Where(x => x.Status == Enums.EmergencyStatus.Done).FirstOrDefault();
+                var newStatus = item.Where(x => x.Status == EmergencyStatus.New).FirstOrDefault();
+                var acceptedStatus = item.Where(x => x.Status == EmergencyStatus.Accepted).FirstOrDefault();
+                var teamSentStatus = item.Where(x => x.Status == EmergencyStatus.TeamSent).FirstOrDefault();
+                var doneStatus = item.Where(x => x.Status == EmergencyStatus.Done).FirstOrDefault();
                 if (newStatus != null && acceptedStatus != null)
                 {
                     if (acceptedToNewStatusTimes.ContainsKey(item.Key.EmergencyTypeId))

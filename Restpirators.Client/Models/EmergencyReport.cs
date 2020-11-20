@@ -1,7 +1,5 @@
-using Restpirators.Client.Enums;
+using Restpirators.Common.Enums;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Restpirators.Client.Models
 {
