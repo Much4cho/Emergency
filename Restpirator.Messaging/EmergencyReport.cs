@@ -1,7 +1,7 @@
 ﻿using Restpirators.Common.Enums;
 using System;
 
-namespace Restpirators.Common.QueueModels
+namespace Restpirator.Messaging
 {
     public class EmergencyReport
     {

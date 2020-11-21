@@ -2,6 +2,6 @@
 {
     public class EmergencyType : BaseEntity
     {
-        BaseEntity public string Name { get; set; }
+        public string Name { get; set; }
     }
 }

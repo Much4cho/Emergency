@@ -6,6 +6,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Restpirators.Dispatcher.Services;
+using Microsoft.EntityFrameworkCore;
+using Restpirators.Repository.Repositories.Abstract;
+using Restpirators.DataAccess.Entities;
+using Restpirators.Repository.Repositories;
+using Microsoft.Extensions.Options;
 
 namespace Restpirators.Dispatcher
 {
@@ -38,11 +44,24 @@ namespace Restpirators.Dispatcher
                 c.SwaggerDoc("v1", new OpenApiInfo() { Title = "Statistics API", Version = "v1" });
             });
 
-            //// configure DI for application services
-            //services.AddScoped<IUserService, UserService>();
+            services.AddDbContext<Repository.EmergencyContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+
+            // configure DI for application services
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped<IRepository<Emergency>, Repository<Emergency>>();
+
+            services.AddScoped<IEmergencyService, EmergencyService>();
 
             services.Configure<RabbitMqConfiguration>(Configuration.GetSection(RabbitMqConfiguration.ConfigurationKey));
-            services.AddHostedService<EmergencyReportHandler>();
+            services.AddHostedService<EmergencyReportHandler>(factory =>
+            {
+                var scope = factory.CreateScope();
+                var options = scope.ServiceProvider.GetService<IOptions<RabbitMqConfiguration>>();
+                var emergencyService = scope.ServiceProvider.GetRequiredService<IEmergencyService>();
+                return new EmergencyReportHandler(options, emergencyService);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

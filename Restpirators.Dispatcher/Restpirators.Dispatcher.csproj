@@ -17,11 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\Restpirator.Messaging\Restpirator.Messaging.csproj" />
     <ProjectReference Include="..\Restpirators.Common\Restpirators.Common.csproj" />
+    <ProjectReference Include="..\Restpirators.Repository\Restpirators.Repository.csproj" />
   </ItemGroup>
 
 

@@ -1,5 +1,4 @@
-﻿using Restpirators.Common.QueueModels;
-using Restpirators.Dispatcher.Models.ConfigurationModels;
+﻿using Restpirators.Dispatcher.Models.ConfigurationModels;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
@@ -8,6 +7,8 @@ using System.Text;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using Restpirator.Messaging;
+using Restpirators.Dispatcher.Services;
 
 namespace Restpirators.Dispatcher.Handlers
 {
@@ -15,18 +16,19 @@ namespace Restpirators.Dispatcher.Handlers
     {
         private IModel _channel;
         private IConnection _connection;
-        //private readonly ICustomerNameUpdateService _customerNameUpdateService;
+        private readonly IEmergencyService _emergencyService;
         private readonly string _hostname;
         private readonly string _queueName;
         private readonly string _username;
         private readonly string _password;
-        public EmergencyReportHandler(IOptions<RabbitMqConfiguration> rabbitMqOptions)
+        public EmergencyReportHandler(IOptions<RabbitMqConfiguration> rabbitMqOptions,
+            IEmergencyService emergencyService)
         {
             _hostname = "localhost";
             _queueName = "emergency";
             _username = rabbitMqOptions.Value.UserName;
             _password = rabbitMqOptions.Value.Password;
-            //_customerNameUpdateService = customerNameUpdateService;
+            _emergencyService = emergencyService;
             InitializeRabbitMqListener();
         }
 
@@ -69,10 +71,9 @@ namespace Restpirators.Dispatcher.Handlers
             return Task.CompletedTask;
         }
 
-        private void HandleMessage(EmergencyReport emergencyReport)
+        private Task HandleMessage(EmergencyReport emergencyReport)
         {
-            //_customerNameUpdateService.UpdateCustomerNameInOrders(updateCustomerFullNameModel);
-            throw new System.Exception();
+            return _emergencyService.AddEmergency(emergencyReport);
         }
 
         private void OnConsumerConsumerCancelled(object sender, ConsumerEventArgs e)

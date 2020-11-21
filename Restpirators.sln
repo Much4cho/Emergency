@@ -26,6 +26,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restpirators.Repository", "Restpirators.Repository\Restpirators.Repository.csproj", "{AEB404A0-BF89-4140-B574-B2DF6DC444D7}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Messaging", "Messaging", "{5D966B7E-61B4-4968-9117-4708A15D6652}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restpirator.Messaging", "Restpirator.Messaging\Restpirator.Messaging.csproj", "{BC247D51-F1E3-4CF0-96F4-155090F3389E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -64,12 +68,17 @@ Global
 		{AEB404A0-BF89-4140-B574-B2DF6DC444D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AEB404A0-BF89-4140-B574-B2DF6DC444D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AEB404A0-BF89-4140-B574-B2DF6DC444D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC247D51-F1E3-4CF0-96F4-155090F3389E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC247D51-F1E3-4CF0-96F4-155090F3389E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC247D51-F1E3-4CF0-96F4-155090F3389E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC247D51-F1E3-4CF0-96F4-155090F3389E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{9C2AFD63-24C8-4F2D-9CBD-7DD20CAAC5A2} = {8C778063-9577-41E9-9F9B-B9E052596726}
+		{BC247D51-F1E3-4CF0-96F4-155090F3389E} = {5D966B7E-61B4-4968-9117-4708A15D6652}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5FC6A62F-C5E3-46E0-AE4A-3FC9D6D08BCD}

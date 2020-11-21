@@ -14,10 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Abstract\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Restpirators.DataAccess\Restpirators.DataAccess.csproj" />
   </ItemGroup>
 
