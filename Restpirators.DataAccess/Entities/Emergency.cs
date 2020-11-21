@@ -1,11 +1,10 @@
 ﻿using Restpirators.Common.Enums;
 using System;
 
-namespace Restpirators.DataAccess.Models
+namespace Restpirators.DataAccess.Entities
 {
-    public class Emergency
+    public class Emergency : BaseEntity
     {
-        public int Id { get; set; }
         public int EmergencyTypeId { get; set; }
         public EmergencyType EmergencyType { get; set; }
         public string Location { get; set; }

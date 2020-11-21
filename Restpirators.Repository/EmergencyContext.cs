@@ -1,7 +1,7 @@
-﻿using Restpirators.DataAccess.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Restpirators.DataAccess.Entities;
 
-namespace Restpirators.DataAccess
+namespace Restpirators.Repository
 {
     public class EmergencyContext : DbContext
     {
