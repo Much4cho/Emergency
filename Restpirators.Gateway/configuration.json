@@ -51,6 +51,19 @@
       "UpstreamPathTemplate": "/emergency/client",
       "UpstreamHttpMethod": [ "POST" ],
       "SwaggerKey": "client"
+    },
+    {
+      "DownstreamPathTemplate": "/api/emergencies",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44334
+        }
+      ],
+      "UpstreamPathTemplate": "/emergency/dispatcher",
+      "UpstreamHttpMethod": [ "GET" ],
+      "SwaggerKey": "dispatcher"
     }
   ],
   "SwaggerEndPoints": [
@@ -71,6 +84,16 @@
           "Name": "Client API",
           "Version": "v1",
           "Url": "https://localhost:44333/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "dispatcher",
+      "Config": [
+        {
+          "Name": "Dispatcher API",
+          "Version": "v1",
+          "Url": "https://localhost:44334/swagger/v1/swagger.json"
         }
       ]
     }
