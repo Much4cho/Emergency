@@ -5,9 +5,11 @@ namespace Restpirators.Repository
 {
     public class EmergencyContext : DbContext
     {
+        public EmergencyContext() : base() { }
         public EmergencyContext(DbContextOptions<EmergencyContext> options) : base(options) { }
         public DbSet<Emergency> Emergencies { get; set; }
         public DbSet<EmergencyType> EmergencyTypes { get; set; }
+        public DbSet<Team> Teams { get; set; }
         public DbSet<User> Users { get; set; }
 
         //// UNCOMMENT FOR MIGRATION
@@ -17,6 +19,9 @@ namespace Restpirators.Repository
         //}
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Emergency>().HasOne(m => m.AssignedToTeam).WithMany(m => m.AssignedEmergencies).OnDelete(DeleteBehavior.SetNull);
+            modelBuilder.Entity<EmergencyType>().Property(m => m.Name).IsRequired();
+            modelBuilder.Entity<User>().Property(m => m.Name).IsRequired();
         }
     }
 }

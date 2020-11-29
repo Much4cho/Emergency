@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using Restpirators.DataAccess.Entities;
 using Restpirators.Dispatcher.Services;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Restpirators.Dispatcher.Controllers
 {
@@ -25,6 +26,19 @@ namespace Restpirators.Dispatcher.Controllers
         public IAsyncEnumerable<Emergency> Get()
         {
             return _emergencyService.GetEmergencies();
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<Emergency> Get(int id)
+        {
+            return await _emergencyService.GetEmergency(id);
+        }
+
+        [HttpPut]
+        public async Task Update([FromBody] Emergency emergency)
+        {
+            await _emergencyService.UpdateEmergency(emergency);
         }
     }
 }

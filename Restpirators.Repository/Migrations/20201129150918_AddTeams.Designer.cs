@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Restpirators.Repository;
 
 namespace Restpirators.Repository.Migrations
 {
     [DbContext(typeof(EmergencyContext))]
-    partial class EmergencyContextModelSnapshot : ModelSnapshot
+    [Migration("20201129150918_AddTeams")]
+    partial class AddTeams
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,9 +27,6 @@ namespace Restpirators.Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("AssignedToTeamId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -48,8 +47,6 @@ namespace Restpirators.Repository.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AssignedToTeamId");
 
                     b.HasIndex("EmergencyTypeId");
 
@@ -108,11 +105,6 @@ namespace Restpirators.Repository.Migrations
 
             modelBuilder.Entity("Restpirators.DataAccess.Entities.Emergency", b =>
                 {
-                    b.HasOne("Restpirators.DataAccess.Entities.Team", "AssignedToTeam")
-                        .WithMany("AssignedEmergencies")
-                        .HasForeignKey("AssignedToTeamId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
                     b.HasOne("Restpirators.DataAccess.Entities.EmergencyType", "EmergencyType")
                         .WithMany()
                         .HasForeignKey("EmergencyTypeId")
