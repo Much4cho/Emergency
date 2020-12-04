@@ -8,8 +8,10 @@ namespace Restpirators.Dispatcher.Services
 {
     public interface IEmergencyService
     {
-        public Task AddEmergency(EmergencyReport emergencyReport);
-        public IAsyncEnumerable<Emergency> GetEmergencies();
+        Task AddEmergency(EmergencyReport emergencyReport);
+        IAsyncEnumerable<Emergency> GetEmergencies();
+        Task<Emergency> GetEmergency(int id);
+        Task UpdateEmergency(Emergency emergency);
     }
     public class EmergencyService : IEmergencyService
     {
@@ -37,6 +39,16 @@ namespace Restpirators.Dispatcher.Services
         public IAsyncEnumerable<Emergency> GetEmergencies()
         {
             return _emergencyRepository.GetAll();
+        }
+
+        public async Task<Emergency> GetEmergency(int id)
+        {
+            return await _emergencyRepository.Get(id);
+        }
+
+        public async Task UpdateEmergency(Emergency emergency)
+        {
+            await _emergencyRepository.Update(emergency);
         }
     }
 }

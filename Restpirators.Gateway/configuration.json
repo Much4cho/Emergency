@@ -40,7 +40,7 @@
       "SwaggerKey": "statistics"
     },
     {
-      "DownstreamPathTemplate": "/emergencies",
+      "DownstreamPathTemplate": "/{everything}  ",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -48,12 +48,12 @@
           "Port": 44333
         }
       ],
-      "UpstreamPathTemplate": "/emergency/client",
+      "UpstreamPathTemplate": "/client/{everything}",
       "UpstreamHttpMethod": [ "POST" ],
       "SwaggerKey": "client"
     },
     {
-      "DownstreamPathTemplate": "/api/emergencies",
+      "DownstreamPathTemplate": "/api/{everything}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -61,8 +61,8 @@
           "Port": 44334
         }
       ],
-      "UpstreamPathTemplate": "/emergency/dispatcher",
-      "UpstreamHttpMethod": [ "GET" ],
+      "UpstreamPathTemplate": "/dispatcher/{everything}",
+      "UpstreamHttpMethod": [ "GET", "PUT", "POST" ],
       "SwaggerKey": "dispatcher"
     }
   ],

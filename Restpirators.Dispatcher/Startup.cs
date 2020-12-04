@@ -41,7 +41,7 @@ namespace Restpirators.Dispatcher
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo() { Title = "Statistics API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo() { Title = "Dispatcher API", Version = "v1" });
             });
 
             services.AddDbContext<Repository.EmergencyContext>(options =>
