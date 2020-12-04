@@ -10,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using MMLib.Ocelot.Provider.AppConfiguration;
 using Microsoft.OpenApi.Models;
 using System.Linq;
+using Prometheus;
 
 namespace Restpirators.Gateway
 {
@@ -47,15 +48,14 @@ namespace Restpirators.Gateway
             app.UseRouting();
             app.UseSwagger();
             app.UseDeveloperExceptionPage();
+            app.UseMetricServer();
+            app.UseRequestMiddleware();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
             app.UseStaticFiles();
-            //app.UseSwaggerUI(c =>
-            //{
-            //    //c.SwaggerEndpoint("v1/swagger.json", "My API V1"); //originally "./swagger/v1/swagger.json"
-            //});
+            //app.UseOcelot().Wait();
             app.UseSwaggerForOcelotUI(x => x.PathToSwaggerGenerator = "/swagger/docs").UseOcelot().Wait();
         }
     }
