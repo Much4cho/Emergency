@@ -30,7 +30,7 @@ namespace Restpirators.Client.Controllers
                                         basicProperties: null,
                                         body: body);
                 return true;
-            }
+            } 
             return false;
         } 
     }
