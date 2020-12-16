@@ -24,7 +24,7 @@ namespace Restpirators.Dispatcher.Handlers
         public EmergencyReportHandler(IOptions<RabbitMqConfiguration> rabbitMqOptions,
             IEmergencyService emergencyService)
         {
-            _hostname = "localhost";
+            _hostname = "host.docker.internal";
             _queueName = "emergency";
             _username = rabbitMqOptions.Value.UserName;
             _password = rabbitMqOptions.Value.Password;

@@ -11,6 +11,7 @@ using MMLib.Ocelot.Provider.AppConfiguration;
 using Microsoft.OpenApi.Models;
 using System.Linq;
 using Prometheus;
+using Elastic.Apm.AspNetCore;
 
 namespace Restpirators.Gateway
 {
@@ -45,6 +46,7 @@ namespace Restpirators.Gateway
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseElasticApm(Configuration);
             app.UseRouting();
             app.UseSwagger();
             app.UseDeveloperExceptionPage();
