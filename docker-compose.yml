@@ -14,8 +14,7 @@ services:
   client:
     container_name: client
     ports: 
-      - 4001:443
-      - 44333:80
+      - 5000:80
     build: 
       context: .
       dockerfile: ./Restpirators.Client/Dockerfile
@@ -26,8 +25,7 @@ services:
   dispatcher:
     container_name: dispatcher
     ports: 
-      - 5000:80
-      - 5001:443
+      - 5001:80
     build: 
       context: .
       dockerfile: ./Restpirators.Dispatcher/Dockerfile
@@ -38,8 +36,7 @@ services:
   analyzer:
     container_name: analyzer
     ports: 
-      - 6000:80
-      - 6001:443
+      - 5002:80
     build:
       context: .
       dockerfile: ./Restpirators.Analyzer/Dockerfile
@@ -50,9 +47,7 @@ services:
   gateway:
     container_name: gateway
     ports: 
-      # - 44315:80
-      - 7000:80
-      - 7001:443
+      - 5003:80
     build:
       context: .
       dockerfile: ./Restpirators.Gateway/Dockerfile

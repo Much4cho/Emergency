@@ -2,11 +2,11 @@
   "Routes": [
     {
       "DownstreamPathTemplate": "/statistics",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44332
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/emergency/statistics",
@@ -15,11 +15,11 @@
     },
     {
       "DownstreamPathTemplate": "/statistics/{year}/{month}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44332
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/emergency/statistics/{year}/{month}",
@@ -28,11 +28,11 @@
     },
     {
       "DownstreamPathTemplate": "/statistics/getTimeStatistics",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44332
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/emergency/statistics/getTimeStatistics",
@@ -41,11 +41,11 @@
     },
     {
       "DownstreamPathTemplate": "/{everything}  ",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44333
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/client/{everything}",
@@ -54,11 +54,11 @@
     },
     {
       "DownstreamPathTemplate": "/api/{everything}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44334
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/dispatcher/{everything}",
@@ -73,7 +73,7 @@
         {
           "Name": "Statistics API",
           "Version": "v1",
-          "Url": "https://localhost:44332/swagger/v1/swagger.json"
+          "Url": "http://analyzer/swagger/v1/swagger.json"
         }
       ]
     },
@@ -83,7 +83,7 @@
         {
           "Name": "Client API",
           "Version": "v1",
-          "Url": "https://localhost:44333/swagger/v1/swagger.json"
+          "Url": "http://client/swagger/v1/swagger.json"
         }
       ]
     },
@@ -93,12 +93,12 @@
         {
           "Name": "Dispatcher API",
           "Version": "v1",
-          "Url": "https://localhost:44334/swagger/v1/swagger.json"
+          "Url": "http://dispatcher/swagger/v1/swagger.json"
         }
       ]
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "http://localhost:44315"
+    "BaseUrl": "http://gateway"
   }
 }
