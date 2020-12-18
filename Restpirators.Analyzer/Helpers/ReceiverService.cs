@@ -25,7 +25,13 @@ namespace Restpirators.Analyzer.Helpers
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
             stoppingToken.ThrowIfCancellationRequested();
-            var factory = new ConnectionFactory() { HostName = "host.docker.internal"  };
+            var factory = new ConnectionFactory() 
+            { 
+                HostName = "rabbitmq",
+                Port = 5672,
+                UserName = "guest",
+                Password = "guest" 
+            };
             var connection = factory.CreateConnection();
             var channel = connection.CreateModel();
             channel.QueueDeclare(queue: "queueName", durable: false, exclusive: false, autoDelete: false, arguments: null);

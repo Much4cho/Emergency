@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Restpirator.Messaging;
 using Restpirators.Dispatcher.Services;
+using System;
 
 namespace Restpirators.Dispatcher.Handlers
 {
@@ -21,14 +22,18 @@ namespace Restpirators.Dispatcher.Handlers
         private readonly string _queueName;
         private readonly string _username;
         private readonly string _password;
+        private readonly int _port;
         public EmergencyReportHandler(IOptions<RabbitMqConfiguration> rabbitMqOptions,
             IEmergencyService emergencyService)
         {
-            _hostname = "host.docker.internal";
+            //why this does not work???
+            _hostname = rabbitMqOptions.Value.HostName;
             _queueName = "emergency";
             _username = rabbitMqOptions.Value.UserName;
             _password = rabbitMqOptions.Value.Password;
+            _port = rabbitMqOptions.Value.Port;
             _emergencyService = emergencyService;
+
             InitializeRabbitMqListener();
         }
 
@@ -36,9 +41,10 @@ namespace Restpirators.Dispatcher.Handlers
         {
             var factory = new ConnectionFactory
             {
-                HostName = _hostname,
-                //UserName = _username,
-                //Password = _password
+                HostName = "rabbitmq",
+                Port = 5672,
+                UserName = "guest",
+                Password = "guest" 
             };
 
             _connection = factory.CreateConnection();

@@ -15,7 +15,13 @@ namespace Restpirators.Client.Controllers
         {
             if(emergency != null)
             {
-                var factory = new ConnectionFactory() { HostName = "localhost" };
+                var factory = new ConnectionFactory() 
+                { 
+                    HostName = "rabbitmq",
+                    Port = 5672,
+                    UserName = "guest",
+                    Password = "guest"
+                };
                 var connection = factory.CreateConnection();
                 var channel = connection.CreateModel();
                     channel.QueueDeclare(queue: "emergency",

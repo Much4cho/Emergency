@@ -1,6 +1,7 @@
 version: "3.7"
 services: 
   rabbitmq:
+    hostname: rabbitmq
     container_name: rabbitmq
     ports: 
       - 5672:5672
@@ -13,10 +14,8 @@ services:
   client:
     container_name: client
     ports: 
-      # - 4000:80
       - 4001:443
       - 44333:80
-    # environment: 
     build: 
       context: .
       dockerfile: ./Restpirators.Client/Dockerfile
@@ -29,11 +28,10 @@ services:
     ports: 
       - 5000:80
       - 5001:443
-    # environment: 
     build: 
       context: .
       dockerfile: ./Restpirators.Dispatcher/Dockerfile
-    # restart: on-failure
+    restart: on-failure
     depends_on: 
       - rabbitmq
 
@@ -45,14 +43,15 @@ services:
     build:
       context: .
       dockerfile: ./Restpirators.Analyzer/Dockerfile
+    restart: on-failure
     depends_on: 
       - rabbitmq
 
   gateway:
     container_name: gateway
     ports: 
-      - 44315:80
-      # - 7000:80
+      # - 44315:80
+      - 7000:80
       - 7001:443
     build:
       context: .
