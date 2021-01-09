@@ -11,6 +11,17 @@ services:
       - RABBITMQ_DEFAULT_PASS=guest
     image: rabbitmq:3-management-alpine
 
+  webapp:
+    container_name: webapp
+    build:
+      context: .
+      dockerfile: ./emergency-web-client/Dockerfile
+    volumes:
+      - './emergency-web-client:/app'
+      - '/app/node_modules'
+    ports:
+      - '4200:4200'
+
   client:
     container_name: client
     ports: 

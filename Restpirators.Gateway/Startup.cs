@@ -17,6 +17,7 @@ namespace Restpirators.Gateway
 {
     public class Startup
     {
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -32,6 +33,17 @@ namespace Restpirators.Gateway
 
             services.AddControllers();
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: "corsPolicy",
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                            .AllowAnyMethod()
+                            .AllowAnyHeader();
+                    });
+            });
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
@@ -46,6 +58,7 @@ namespace Restpirators.Gateway
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseCors("corsPolicy");
             app.UseElasticApm(Configuration);
             app.UseRouting();
             app.UseSwagger();
@@ -54,7 +67,7 @@ namespace Restpirators.Gateway
             app.UseRequestMiddleware();
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllers(); 
             });
             app.UseStaticFiles();
             //app.UseOcelot().Wait();
