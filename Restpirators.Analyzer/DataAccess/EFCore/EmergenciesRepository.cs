@@ -15,7 +15,7 @@ namespace Restpirators.Analyzer.DataAccess.EFCore
         private readonly IMongoDatabase _database;
         public EmergenciesRepository()
         {
-            var client = new MongoClient();
+            var client = new MongoClient("mongodb://mongodb:27017");
             _database = client.GetDatabase("Emergency");
         }
         public IEnumerable<DtoQuantityStatistic> GetEmergencyQuantityStatistics(int? year, int? month)

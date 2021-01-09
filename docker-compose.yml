@@ -21,6 +21,17 @@ services:
       - '/app/node_modules'
     ports:
       - '4200:4200'
+      
+  mongodb:
+    container_name: mongodb
+    image: mongo:3.6
+    restart: always
+    environment:
+      - MONGO_DATA_DIR=/data/db
+      - MONGO_LOG_DIR=/dev/null
+    ports:
+      - 27017:27017
+    command: mongod --smallfiles --logpath=/dev/null # --quiet
 
   client:
     container_name: client
@@ -54,6 +65,18 @@ services:
     restart: on-failure
     depends_on: 
       - rabbitmq
+      - mongodb
+
+  auth:
+    container_name: auth
+    ports: 
+      - 5004:80
+    build:
+      context: .
+      dockerfile: ./Restpirators.Auth/Dockerfile
+    restart: on-failure
+    depends_on: 
+      - rabbitmq
 
   gateway:
     container_name: gateway
@@ -66,6 +89,7 @@ services:
       - client
       - dispatcher
       - analyzer
+      - auth
 
   elasticsearch:  
     container_name: elasticsearch  

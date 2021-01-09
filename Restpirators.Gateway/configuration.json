@@ -9,7 +9,7 @@
           "Port": 80
         }
       ],
-      "UpstreamPathTemplate": "/emergency/statistics",
+      "UpstreamPathTemplate": "/statistics",
       "UpstreamHttpMethod": [ "GET" ],
       "SwaggerKey": "statistics"
     },
@@ -22,7 +22,7 @@
           "Port": 80
         }
       ],
-      "UpstreamPathTemplate": "/emergency/statistics/{year}/{month}",
+      "UpstreamPathTemplate": "/statistics/{year}/{month}",
       "UpstreamHttpMethod": [ "GET" ],
       "SwaggerKey": "statistics"
     },
@@ -35,7 +35,7 @@
           "Port": 80
         }
       ],
-      "UpstreamPathTemplate": "/emergency/statistics/getTimeStatistics",
+      "UpstreamPathTemplate": "/statistics/getTimeStatistics",
       "UpstreamHttpMethod": [ "GET" ],
       "SwaggerKey": "statistics"
     },
@@ -64,6 +64,32 @@
       "UpstreamPathTemplate": "/dispatcher/{everything}",
       "UpstreamHttpMethod": [ "GET", "PUT", "POST" ],
       "SwaggerKey": "dispatcher"
+    },
+    {
+      "DownstreamPathTemplate": "/users/authenticate",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "auth",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/authenticate",
+      "UpstreamHttpMethod": [ "POST" ],
+      "SwaggerKey": "auth"
+    },
+    {
+      "DownstreamPathTemplate": "/users",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "auth",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/users",
+      "UpstreamHttpMethod": [ "GET" ],
+      "SwaggerKey": "auth"
     }
   ],
   "SwaggerEndPoints": [
@@ -94,6 +120,16 @@
           "Name": "Dispatcher API",
           "Version": "v1",
           "Url": "http://dispatcher/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "auth",
+      "Config": [
+        {
+          "Name": "Auth API",
+          "Version": "v1",
+          "Url": "http://auth/swagger/v1/swagger.json"
         }
       ]
     }

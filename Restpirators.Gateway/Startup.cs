@@ -27,11 +27,13 @@ namespace Restpirators.Gateway
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            
             services.AddOcelot()
                 .AddAppConfiguration();
             services.AddSwaggerForOcelot(Configuration);
 
             services.AddControllers();
+<<<<<<< HEAD
 
             services.AddCors(options =>
             {
@@ -44,10 +46,41 @@ namespace Restpirators.Gateway
                     });
             });
 
+=======
+>>>>>>> 0bda2999863ede1115324386ef40cd4c9b516c97
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
                 c.ResolveConflictingActions(x => x.First());
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = @"JWT Authorization header using the Bearer scheme. \r\n\r\n 
+                      Enter 'Bearer' [space] and then your token in the text input below.
+                      \r\n\r\nExample: 'Bearer 12345abcdef'",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer"
+                });
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement()
+      {
+        {
+          new OpenApiSecurityScheme
+          {
+            Reference = new OpenApiReference
+              {
+                Type = ReferenceType.SecurityScheme,
+                Id = "Bearer"
+              },
+              Scheme = "oauth2",
+              Name = "Bearer",
+              In = ParameterLocation.Header,
+
+            },
+            new List<string>()
+          }
+        });
             });
         }
 
@@ -65,6 +98,7 @@ namespace Restpirators.Gateway
             app.UseDeveloperExceptionPage();
             app.UseMetricServer();
             app.UseRequestMiddleware();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers(); 
