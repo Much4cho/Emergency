@@ -10,6 +10,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Restpirators.Common.Models;
 
 namespace Restpirators.Analyzer.Controllers
 {
@@ -22,6 +23,7 @@ namespace Restpirators.Analyzer.Controllers
         {
             _emergenciesRepository = emergenciesRepository;
         }
+        [Authorize]
         [HttpGet("{year}/{month}"), Description("Get quantity statistics")]
         public IActionResult CreateRoom(int year, int month)
         {

@@ -33,8 +33,6 @@ namespace Restpirators.Gateway
                 .ReadFrom.Configuration(configuration)
                 .CreateLogger();
             CreateHostBuilder(args).Build().Run();
-            CreateHostBuilder(args).Build().Run();
-
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
