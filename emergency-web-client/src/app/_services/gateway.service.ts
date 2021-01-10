@@ -20,4 +20,7 @@ export class GatewayService {
     return this.http.post<Emergency>(environment.gatewayUrl + '/client/Emergencies', emergency, httpOptions);
   }
 
+  getEmergencies(): Observable<Array<Emergency>> {
+    return this.http.get<Array<Emergency>>(environment.gatewayUrl + '/dispatcher/Emergencies', httpOptions);
+  }
 }

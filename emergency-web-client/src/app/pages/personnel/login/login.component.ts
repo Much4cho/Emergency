@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
+import { Router } from '@angular/router';
+import { TokenStorageService } from 'src/app/_services/token-storage.service';
 import {AuthService} from '../../../_services/auth.service';
 
 @Component({
@@ -11,42 +12,47 @@ import {AuthService} from '../../../_services/auth.service';
 export class LoginComponent implements OnInit {
 
   form: FormGroup;
+  isLoggedIn = false;
+  errorMessage = '';
   public loginInvalid: boolean;
-  private formSubmitAttempt: boolean;
 
   constructor(private fb: FormBuilder,
-              private route: ActivatedRoute,
               private router: Router,
+              private tokenStorage: TokenStorageService,
               private authService: AuthService) {
   }
 
-  async ngOnInit(): Promise<void> {
+  ngOnInit(): void {
     this.form = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
-
-    // if (await this.authService.checkAuthenticated()) {
-    //   await this.router.navigate([this.returnUrl]);
-    // }
+    if (this.tokenStorage.getToken()) {
+      this.isLoggedIn = true;
+      this.router.navigate(['/home/personnel']);
+    }
   }
 
-  onSubmit() {
-    this.loginInvalid = false;
-    this.formSubmitAttempt = false;
-    this.router.navigateByUrl('home/personnel/handling').then(r => {
-    });
-    // if (this.form.valid) {
-    //   try {
-    //     const username = this.form.get('username').value;
-    //     const password = this.form.get('password').value;
-    //     // await this.authService.login(username, password);
-    //   } catch (err) {
-    //     this.loginInvalid = true;
-    //   }
-    // } else {
-    //   this.formSubmitAttempt = true;
-    // }
+  onSubmit(): void {
+    this.authService.login(this.form.value.username, this.form.value.password).subscribe(
+      (data) => {
+        this.tokenStorage.saveToken(data.accessToken);
+        this.tokenStorage.saveUser(data);
+
+        this.loginInvalid = false;
+        this.isLoggedIn = true;
+        console.log(data);
+        this.reloadPage();
+      },
+      (err) => {
+        this.errorMessage = err.error.message;
+        console.log(err);
+        this.loginInvalid = true;
+      }
+    );
   }
 
+  reloadPage(): void {
+    window.location.reload();
+  }
 }

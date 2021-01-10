@@ -33,7 +33,6 @@ namespace Restpirators.Gateway
             services.AddSwaggerForOcelot(Configuration);
 
             services.AddControllers();
-<<<<<<< HEAD
 
             services.AddCors(options =>
             {
@@ -46,8 +45,6 @@ namespace Restpirators.Gateway
                     });
             });
 
-=======
->>>>>>> 0bda2999863ede1115324386ef40cd4c9b516c97
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });

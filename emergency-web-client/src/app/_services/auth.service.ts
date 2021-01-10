@@ -1,17 +1,27 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'content-type': 'application/json' })
+};
 
 @Injectable({
   providedIn: 'root'
 })
-
-// TODO: authentication
 export class AuthService {
-
-  constructor() { }
+  constructor(private http: HttpClient) {
+  }
 
   checkAuthenticated() {
   }
 
-  login(username: string, password: string) {
+  login(username, password): Observable<any> {
+
+    return this.http.post(environment.gatewayUrl + '/authenticate', {
+      username,
+      password
+    }, httpOptions);
   }
 }

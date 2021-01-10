@@ -2,10 +2,13 @@
   <a mat-list-item routerLinkActive="list-item-active" routerLink="/home/client">
     <mat-icon>notification_important</mat-icon>Client
   </a>
-  <a mat-list-item routerLinkActive="list-item-active" routerLink="/home/personnel/login">
+  <a *ngIf="isLoggedIn" mat-list-item routerLinkActive="list-item-active" routerLink="/home/personnel">
     <mat-icon>medical_services</mat-icon>Personnel
   </a>
-  <a mat-list-item routerLinkActive="list-item-active" routerLink="/home/reports">
+  <a *ngIf="isLoggedIn" mat-list-item routerLinkActive="list-item-active" routerLink="/home/reports">
     <mat-icon>insert_chart</mat-icon>Reports
+  </a>
+  <a mat-list-item routerLinkActive="list-item-active" routerLink="/home/login">
+    <mat-icon>login</mat-icon>Login
   </a>
 </mat-nav-list>

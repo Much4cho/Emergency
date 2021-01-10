@@ -18,7 +18,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using static Restpirators.Analyzer.Helpers.ReceiverService;
 using System.Text;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Restpirators.Analyzer

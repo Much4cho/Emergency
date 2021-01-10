@@ -1,1 +1,72 @@
-<router-outlet></router-outlet>
+<table mat-table [dataSource]="emergencies" matSort>
+
+  <!--  Location column  -->
+    <ng-container matColumnDef="location">
+      <th mat-header-cell *matHeaderCellDef> Location </th>
+      <td mat-cell *matCellDef="let emergency"> {{emergency.Location}} </td>
+    </ng-container>
+
+  <!--  Type column  -->
+    <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef> type </th>
+      <td mat-cell *matCellDef="let emergency"> {{emergencyTypes[emergency.EmergencyTypeId]}} </td>
+    </ng-container>
+
+  <!--  Description column  -->
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef> Description </th>
+      <td mat-cell *matCellDef="let emergency"> {{emergency.Description}} </td>
+    </ng-container>
+
+  <!--  Report time column  -->
+    <ng-container matColumnDef="reportTime">
+      <th mat-header-cell *matHeaderCellDef> Report time </th>
+      <td mat-cell *matCellDef="let emergency"> {{emergency.ReportTime | date: 'shortTime'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="dispatchBtn">
+      <th mat-header-cell *matHeaderCellDef> Dispatch </th>
+      <td mat-cell *matCellDef="let emergency">
+        <button name="btn" mat-button color='primary'
+          (click)="dispatch(emergency.id)"> <span name="btn">  </span>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="emergencyColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: emergencyColumns;"></tr>
+  </table>
+
+  <table mat-table [dataSource]="teams" matSort>
+
+    <!--  Location column  -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let team"> {{team.Name}} </td>
+      </ng-container>
+
+    <!--  Type column  -->
+      <ng-container matColumnDef="location">
+        <th mat-header-cell *matHeaderCellDef> Location </th>
+        <td mat-cell *matCellDef="let team"> {{team.Location}} </td>
+      </ng-container>
+
+    <!--  Description column  -->
+      <ng-container matColumnDef="num">
+        <th mat-header-cell *matHeaderCellDef> Assigned emergencies </th>
+        <td mat-cell *matCellDef="let team"> {{team.AssignedEmergencies.size()}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="dispatchBtn">
+        <th mat-header-cell *matHeaderCellDef>  </th>
+        <td mat-cell *matCellDef="let emergency">
+          <button name="btn" mat-button color='primary'
+            (click)="dispatch(emergency.id)"> <span name="btn"> Dispatch </span>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="teamColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: teamColumns;"></tr>
+    </table>
+
