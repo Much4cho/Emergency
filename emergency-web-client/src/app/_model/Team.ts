@@ -1,7 +1,8 @@
 import { Emergency } from './Emergency';
 
 export class Team {
-  Name: string;
-  Location: string;
-  AssignedEmergencies: Array<Emergency>;
+  id: number;
+  name: string;
+  location: string;
+  assignedEmergencies: Array<Emergency>;
 }

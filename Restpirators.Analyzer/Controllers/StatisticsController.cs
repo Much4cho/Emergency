@@ -23,7 +23,7 @@ namespace Restpirators.Analyzer.Controllers
         {
             _emergenciesRepository = emergenciesRepository;
         }
-        [Authorize]
+        // [Authorize]
         [HttpGet("{year}/{month}"), Description("Get quantity statistics")]
         public IActionResult CreateRoom(int year, int month)
         {

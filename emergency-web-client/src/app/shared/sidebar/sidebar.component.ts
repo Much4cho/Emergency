@@ -16,4 +16,9 @@ export class SidebarComponent implements OnInit {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
   }
 
+  logout() {
+    this.tokenStorageService.signOut();
+    window.location.reload();
+  }
+
 }

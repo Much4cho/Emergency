@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { GatewayService } from 'src/app/_services/gateway.service';
 import { TokenStorageService } from 'src/app/_services/token-storage.service';
 
 @Component({
@@ -9,10 +10,11 @@ import { TokenStorageService } from 'src/app/_services/token-storage.service';
 })
 export class ReportsComponent implements OnInit {
 
-  isLoggedIn: boolean;
+  isLoggedIn = false;
 
   constructor(private tokenStorageService: TokenStorageService,
-              private router: Router) { }
+              private router: Router,
+              private gatewayService: GatewayService) { }
 
   ngOnInit(): void {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
@@ -20,6 +22,11 @@ export class ReportsComponent implements OnInit {
     if (!this.isLoggedIn) {
       this.router.navigate(['/home/login']);
     }
+    // this.loadData();
   }
+
+  // loadData() {
+  //   this.gatewayService.getStatistics(2,2)
+  // }
 
 }

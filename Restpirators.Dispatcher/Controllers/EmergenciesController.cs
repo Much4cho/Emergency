@@ -24,7 +24,7 @@ namespace Restpirators.Dispatcher.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        // [Authorize]
         public IAsyncEnumerable<Emergency> Get()
         {
             return _emergencyService.GetEmergencies();
@@ -32,14 +32,14 @@ namespace Restpirators.Dispatcher.Controllers
 
         [HttpGet]
         [Route("{id}")]
-        [Authorize]
+        // [Authorize]
         public async Task<Emergency> Get(int id)
         {
             return await _emergencyService.GetEmergency(id);
         }
 
         [HttpPut]
-        [Authorize]
+        // [Authorize]
         public async Task Update([FromBody] Emergency emergency)
         {
             await _emergencyService.UpdateEmergency(emergency);

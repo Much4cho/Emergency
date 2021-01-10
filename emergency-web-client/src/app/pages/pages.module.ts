@@ -19,6 +19,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
 import {HttpClientModule} from '@angular/common/http';
+import {MatRadioModule} from '@angular/material/radio';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import {HttpClientModule} from '@angular/common/http';
     MatOptionModule,
     MatSelectModule,
     MatTableModule,
-    MatSortModule
+    MatSortModule,
+    MatRadioModule,
   ]
 })
 export class PagesModule {

@@ -8,7 +8,10 @@
   <a *ngIf="isLoggedIn" mat-list-item routerLinkActive="list-item-active" routerLink="/home/reports">
     <mat-icon>insert_chart</mat-icon>Reports
   </a>
-  <a mat-list-item routerLinkActive="list-item-active" routerLink="/home/login">
+  <a *ngIf="!isLoggedIn" mat-list-item routerLinkActive="list-item-active" routerLink="/home/login">
     <mat-icon>login</mat-icon>Login
+  </a>
+  <a *ngIf="isLoggedIn" mat-list-item routerLinkActive="list-item-active" (click)="logout()">
+    <mat-icon>logout</mat-icon>Logout
   </a>
 </mat-nav-list>

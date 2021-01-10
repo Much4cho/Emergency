@@ -4,7 +4,7 @@ export class Emergency {
   Location: string;
   Description: string;
   ReportTime: Date;
-  Status: number;
+  status: number;
   ModUser: string;
 
   constructor(type: number, location, description) {
