@@ -1,0 +1,17 @@
+{
+	"ulid": "01EW5BCHWK65AP7RK608W3TN30",
+	"minTime": 1610654763766,
+	"maxTime": 1610661600000,
+	"stats": {
+		"numSamples": 1041,
+		"numSeries": 179,
+		"numChunks": 179
+	},
+	"compaction": {
+		"level": 1,
+		"sources": [
+			"01EW5BCHWK65AP7RK608W3TN30"
+		]
+	},
+	"version": 1
+}

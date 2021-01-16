@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Restpirators.Common.Models;
 using Restpirators.DataAccess.Entities;
 using Restpirators.Dispatcher.Services;
 using System.Collections.Generic;

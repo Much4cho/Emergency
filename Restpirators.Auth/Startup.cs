@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Restpirators.Auth.Extensions;
+using Restpirators.Auth.Models;
 
 namespace Restpirators.Auth
 {
@@ -26,8 +28,9 @@ namespace Restpirators.Auth
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
-            services.AddScoped<IUserService, UserService>();
+            services.AddMongoDb(Configuration);
+            services.AddJwt(Configuration);
+            services.AddTransient<IEncryptor, Encryptor>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -48,7 +51,6 @@ namespace Restpirators.Auth
             app.UseRouting();
 
             app.UseAuthorization();
-            app.UseMiddleware<JwtMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

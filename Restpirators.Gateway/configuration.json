@@ -24,7 +24,11 @@
       ],
       "UpstreamPathTemplate": "/statistics/{year}/{month}",
       "UpstreamHttpMethod": [ "GET" ],
-      "SwaggerKey": "statistics"
+      "SwaggerKey": "statistics",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
     },
     {
       "DownstreamPathTemplate": "/statistics/getTimeStatistics",
@@ -37,7 +41,11 @@
       ],
       "UpstreamPathTemplate": "/statistics/getTimeStatistics",
       "UpstreamHttpMethod": [ "GET" ],
-      "SwaggerKey": "statistics"
+      "SwaggerKey": "statistics",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
     },
     {
       "DownstreamPathTemplate": "/{everything}",
@@ -63,10 +71,14 @@
       ],
       "UpstreamPathTemplate": "/dispatcher/{everything}",
       "UpstreamHttpMethod": [ "GET", "PUT", "POST" ],
-      "SwaggerKey": "dispatcher"
+      "SwaggerKey": "dispatcher",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
     },
     {
-      "DownstreamPathTemplate": "/users/authenticate",
+      "DownstreamPathTemplate": "/users/login",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -74,12 +86,12 @@
           "Port": 80
         }
       ],
-      "UpstreamPathTemplate": "/authenticate",
+      "UpstreamPathTemplate": "/login",
       "UpstreamHttpMethod": [ "POST" ],
       "SwaggerKey": "auth"
     },
     {
-      "DownstreamPathTemplate": "/users",
+      "DownstreamPathTemplate": "/users/register",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -87,7 +99,20 @@
           "Port": 80
         }
       ],
-      "UpstreamPathTemplate": "/users",
+      "UpstreamPathTemplate": "/register",
+      "UpstreamHttpMethod": [ "POST" ],
+      "SwaggerKey": "auth"
+    },
+    {
+      "DownstreamPathTemplate": "/users/validate",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "auth",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/validate",
       "UpstreamHttpMethod": [ "GET" ],
       "SwaggerKey": "auth"
     }

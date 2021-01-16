@@ -12,6 +12,9 @@ using Microsoft.OpenApi.Models;
 using System.Linq;
 using Prometheus;
 using Elastic.Apm.AspNetCore;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Restpirators.Gateway
 {
@@ -31,7 +34,27 @@ namespace Restpirators.Gateway
             services.AddOcelot()
                 .AddAppConfiguration();
             services.AddSwaggerForOcelot(Configuration);
+            var jwtSection = Configuration.GetSection("jwt");
+            var jwtOptions = jwtSection.Get<JwtOptions>();
+            var key = Encoding.UTF8.GetBytes(jwtOptions.Secret);
 
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
             services.AddControllers();
 
             services.AddCors(options =>
@@ -88,12 +111,14 @@ namespace Restpirators.Gateway
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseAuthentication();
             app.UseCors("corsPolicy");
-            app.UseElasticApm(Configuration);
+            //app.UseElasticApm(Configuration);
             app.UseRouting();
             app.UseSwagger();
             app.UseDeveloperExceptionPage();
             app.UseMetricServer();
+            app.UseHttpMetrics();
             app.UseRequestMiddleware();
 
             app.UseEndpoints(endpoints =>
