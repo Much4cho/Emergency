@@ -19,9 +19,10 @@ export class AuthService {
 
   login(username, password): Observable<any> {
 
-    return this.http.post(environment.gatewayUrl + '/authenticate', {
+    return this.http.post(environment.gatewayUrl + '/login', {
       username,
-      password
-    }, httpOptions);
+      password,
+      isAdmin: true,
+    });
   }
 }

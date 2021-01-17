@@ -20,6 +20,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
 import {HttpClientModule} from '@angular/common/http';
 import {MatRadioModule} from '@angular/material/radio';
+import { authInterceptorProviders } from '../_helpers/auth.interceptor';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import {MatRadioModule} from '@angular/material/radio';
     MatTableModule,
     MatSortModule,
     MatRadioModule,
-  ]
+  ],
+  providers: [authInterceptorProviders]
 })
 export class PagesModule {
 }

@@ -5,31 +5,31 @@ import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
 
 
-const httpOptions = {
-  headers: new HttpHeaders({ 'content-type': 'application/json' })
-};
+// const httpOptions = {
+//   headers: new HttpHeaders({ 'content-type': 'application/json' })
+// };
 
 @Injectable({
   providedIn: 'root'
 })
 export class GatewayService {
 
-  httpOptions: any;
+  // httpOptions: any;
 
   constructor(private http: HttpClient) {
 
   }
 
   addEmergency(emergency: Emergency): Observable<Emergency> {
-    return this.http.post<Emergency>(environment.gatewayUrl + '/client/Emergencies', emergency, httpOptions);
+    return this.http.post<Emergency>(environment.gatewayUrl + '/client/Emergencies', emergency);
   }
 
   getEmergencies(): Observable<Array<Emergency>> {
-    return this.http.get<Array<Emergency>>(environment.gatewayUrl + '/dispatcher/Emergencies', httpOptions);
+    return this.http.get<Array<Emergency>>(environment.gatewayUrl + '/dispatcher/Emergencies');
   }
 
   updateEmergency(emergency: Emergency): Observable<Emergency> {
-    return this.http.put<Emergency>(environment.gatewayUrl + '/dispatcher/Emergencies', emergency, httpOptions);
+    return this.http.put<Emergency>(environment.gatewayUrl + '/dispatcher/Emergencies', emergency);
   }
 
 }

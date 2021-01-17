@@ -41,13 +41,18 @@ export class LoginComponent implements OnInit {
 
         this.loginInvalid = false;
         this.isLoggedIn = true;
-        console.log(data);
         this.reloadPage();
       },
       (err) => {
-        this.errorMessage = err.error.message;
-        console.log(err);
-        this.loginInvalid = true;
+        if (err.status === 200) {
+          this.tokenStorage.saveToken(err.error.text);
+          this.loginInvalid = false;
+          this.isLoggedIn = true;
+          this.reloadPage();
+        } else {
+          this.errorMessage = err.error.message;
+          this.loginInvalid = true;
+        }
       }
     );
   }
