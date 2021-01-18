@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Restpirators.Dispatcher.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class EmergenciesController : ControllerBase
     {
@@ -23,7 +23,6 @@ namespace Restpirators.Dispatcher.Controllers
         }
 
         [HttpGet]
-        // [Authorize]
         public IAsyncEnumerable<Emergency> Get()
         {
             return _emergencyService.GetEmergencies();
@@ -31,14 +30,12 @@ namespace Restpirators.Dispatcher.Controllers
 
         [HttpGet]
         [Route("{id}")]
-        // [Authorize]
         public async Task<Emergency> Get(int id)
         {
             return await _emergencyService.GetEmergency(id);
         }
 
         [HttpPut]
-        // [Authorize]
         public async Task Update([FromBody] Emergency emergency)
         {
             await _emergencyService.UpdateEmergency(emergency);
