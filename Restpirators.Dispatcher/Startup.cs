@@ -81,8 +81,10 @@ namespace Restpirators.Dispatcher
             // configure DI for application services
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IRepository<Emergency>, Repository<Emergency>>();
+            services.AddScoped<IRepository<Team>, Repository<Team>>();
 
             services.AddScoped<IEmergencyService, EmergencyService>();
+            services.AddScoped<ITeamService, TeamService>();
 
             services.Configure<RabbitMqConfiguration>(Configuration.GetSection(RabbitMqConfiguration.ConfigurationKey));
             services.AddHostedService<EmergencyReportHandler>(factory =>

@@ -61,7 +61,7 @@
       "SwaggerKey": "client"
     },
     {
-      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamPathTemplate": "/emergencies",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -69,8 +69,59 @@
           "Port": 80
         }
       ],
-      "UpstreamPathTemplate": "/dispatcher/{everything}",
-      "UpstreamHttpMethod": [ "GET", "PUT", "POST" ],
+      "UpstreamPathTemplate": "/emergencies",
+      "UpstreamHttpMethod": [ "GET", "PUT" ],
+      "SwaggerKey": "dispatcher",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/emergencies/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "dispatcher",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/emergencies/{id}",
+      "UpstreamHttpMethod": [ "GET"],
+      "SwaggerKey": "dispatcher",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/teams/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "dispatcher",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/teams/{id}",
+      "UpstreamHttpMethod": [ "GET"],
+      "SwaggerKey": "dispatcher",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/teams",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "dispatcher",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/teams",
+      "UpstreamHttpMethod": [ "GET", "PUT"],
       "SwaggerKey": "dispatcher",
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
