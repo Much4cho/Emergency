@@ -46,7 +46,7 @@ export class PersonnelComponent implements OnInit {
   selectEm(emergency) {
     this.selectedEmergency = emergency;
     this.isSelected = true;
-    console.log(this.selectedEmergency);
+    console.log(this.selectedEmergency.status);
   }
 
   dispatch(team): void {
@@ -55,8 +55,9 @@ export class PersonnelComponent implements OnInit {
     team.assignedEmergencies.push(this.selectedEmergency);
     this.gatewayService.updateEmergency(this.selectedEmergency).subscribe(
       (res) => {
-        // this.loadData();
-        // this.isSelected = null;
+        console.log(res);
+        this.loadData();
+        this.isSelected = null;
       }
     );
     this.emergencies = this.emergencies.filter((d) => d.status < 3);

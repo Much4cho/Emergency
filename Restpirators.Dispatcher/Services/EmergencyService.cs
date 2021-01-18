@@ -34,6 +34,7 @@ namespace Restpirators.Dispatcher.Services
             };
 
             await _emergencyRepository.Insert(entity);
+            await _emergencyRepository.SaveChanges();
         }
 
         public IAsyncEnumerable<Emergency> GetEmergencies()
@@ -49,6 +50,7 @@ namespace Restpirators.Dispatcher.Services
         public async Task UpdateEmergency(Emergency emergency)
         {
             await _emergencyRepository.Update(emergency);
+            await _emergencyRepository.SaveChanges();
         }
     }
 }

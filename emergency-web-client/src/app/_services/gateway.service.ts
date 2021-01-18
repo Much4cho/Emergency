@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Emergency} from '../_model/Emergency';
-import {Observable} from 'rxjs';
-import {environment} from '../../environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { Emergency } from '../_model/Emergency';
+import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 
 // const httpOptions = {
@@ -13,8 +13,6 @@ import {environment} from '../../environments/environment';
   providedIn: 'root'
 })
 export class GatewayService {
-
-  // httpOptions: any;
 
   constructor(private http: HttpClient) {
 
