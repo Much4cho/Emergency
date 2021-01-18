@@ -51,13 +51,18 @@ export class PersonnelComponent implements OnInit {
 
   dispatch(team): void {
     this.selectedEmergency.status = 3;
-    this.selectedEmergency.teamId = team.id;
+    this.selectedEmergency.assignedToTeamId = team.id;
+
     team.assignedEmergencies.push(this.selectedEmergency);
+    console.log(this.selectedEmergency);
     this.gatewayService.updateEmergency(this.selectedEmergency).subscribe(
       (res) => {
         console.log(res);
         this.loadData();
         this.isSelected = null;
+      },
+      (error) => {
+        console.log(error);
       }
     );
     this.emergencies = this.emergencies.filter((d) => d.status < 3);
@@ -66,7 +71,6 @@ export class PersonnelComponent implements OnInit {
 
   checkLogin(): boolean {
     const isLoggedIn = !!this.tokenStorageService.getToken();
-
     if (!isLoggedIn) {
       this.router.navigate(['/home/login']);
       return false;
