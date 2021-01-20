@@ -109,16 +109,16 @@ namespace Restpirators.Analyzer.DataAccess.EFCore
             foreach (var item in result.GroupBy(x => new { x.EmergencyId, x.EmergencyTypeId }))
             {
                 var newStatus = item.Where(x => x.Status == EmergencyStatus.New).FirstOrDefault();
-                var acceptedStatus = item.Where(x => x.Status == EmergencyStatus.Accepted).FirstOrDefault();
+                //var acceptedStatus = item.Where(x => x.Status == EmergencyStatus.Accepted).FirstOrDefault();
                 var teamSentStatus = item.Where(x => x.Status == EmergencyStatus.TeamSent).FirstOrDefault();
                 var doneStatus = item.Where(x => x.Status == EmergencyStatus.Done).FirstOrDefault();
-                if (newStatus != null && acceptedStatus != null)
-                {
-                    if (acceptedToNewStatusTimes.ContainsKey(item.Key.EmergencyTypeId))
-                        acceptedToNewStatusTimes[item.Key.EmergencyTypeId].Add(acceptedStatus.ModDate - newStatus.ModDate);
-                    else
-                        acceptedToNewStatusTimes.Add(item.Key.EmergencyTypeId, new List<TimeSpan>() { acceptedStatus.ModDate - newStatus.ModDate });
-                }
+                //if (newStatus != null && acceptedStatus != null)
+                //{
+                //    if (acceptedToNewStatusTimes.ContainsKey(item.Key.EmergencyTypeId))
+                //        acceptedToNewStatusTimes[item.Key.EmergencyTypeId].Add(acceptedStatus.ModDate - newStatus.ModDate);
+                //    else
+                //        acceptedToNewStatusTimes.Add(item.Key.EmergencyTypeId, new List<TimeSpan>() { acceptedStatus.ModDate - newStatus.ModDate });
+                //}
                 if (newStatus != null && teamSentStatus != null)
                 {
                     if (teamSentToNewStatusTimes.ContainsKey(item.Key.EmergencyTypeId))
@@ -126,13 +126,13 @@ namespace Restpirators.Analyzer.DataAccess.EFCore
                     else
                         teamSentToNewStatusTimes.Add(item.Key.EmergencyTypeId, new List<TimeSpan>() { teamSentStatus.ModDate - newStatus.ModDate });
                 }
-                if (teamSentStatus != null && acceptedStatus != null)
-                {
-                    if (teamSentToAcceptedStatusTimes.ContainsKey(item.Key.EmergencyTypeId))
-                        teamSentToAcceptedStatusTimes[item.Key.EmergencyTypeId].Add(teamSentStatus.ModDate - acceptedStatus.ModDate);
-                    else
-                        teamSentToAcceptedStatusTimes.Add(item.Key.EmergencyTypeId, new List<TimeSpan>() { teamSentStatus.ModDate - acceptedStatus.ModDate });
-                }
+                //if (teamSentStatus != null && acceptedStatus != null)
+                //{
+                //    if (teamSentToAcceptedStatusTimes.ContainsKey(item.Key.EmergencyTypeId))
+                //        teamSentToAcceptedStatusTimes[item.Key.EmergencyTypeId].Add(teamSentStatus.ModDate - acceptedStatus.ModDate);
+                //    else
+                //        teamSentToAcceptedStatusTimes.Add(item.Key.EmergencyTypeId, new List<TimeSpan>() { teamSentStatus.ModDate - acceptedStatus.ModDate });
+                //}
                 if (doneStatus != null && newStatus != null)
                 {
                     if (doneToNewStatusTimes.ContainsKey(item.Key.EmergencyTypeId))
@@ -140,13 +140,13 @@ namespace Restpirators.Analyzer.DataAccess.EFCore
                     else
                         doneToNewStatusTimes.Add(item.Key.EmergencyTypeId, new List<TimeSpan>() { doneStatus.ModDate - newStatus.ModDate });
                 }
-                if (doneStatus != null && acceptedStatus != null)
-                {
-                    if (doneToAcceptedStatusTimes.ContainsKey(item.Key.EmergencyTypeId))
-                        doneToAcceptedStatusTimes[item.Key.EmergencyTypeId].Add(doneStatus.ModDate - acceptedStatus.ModDate);
-                    else
-                        doneToAcceptedStatusTimes.Add(item.Key.EmergencyTypeId, new List<TimeSpan>() { doneStatus.ModDate - acceptedStatus.ModDate });
-                }
+                //if (doneStatus != null && acceptedStatus != null)
+                //{
+                //    if (doneToAcceptedStatusTimes.ContainsKey(item.Key.EmergencyTypeId))
+                //        doneToAcceptedStatusTimes[item.Key.EmergencyTypeId].Add(doneStatus.ModDate - acceptedStatus.ModDate);
+                //    else
+                //        doneToAcceptedStatusTimes.Add(item.Key.EmergencyTypeId, new List<TimeSpan>() { doneStatus.ModDate - acceptedStatus.ModDate });
+                //}
                 if (doneStatus != null && teamSentStatus != null)
                 {
                     if (doneToTeamSentStatusTimes.ContainsKey(item.Key.EmergencyTypeId))
