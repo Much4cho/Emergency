@@ -3,7 +3,6 @@ using Restpirators.DataAccess.Entities;
 using Restpirators.Repository.Repositories.Abstract;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Restpirators.Repository.Repositories
@@ -44,6 +43,7 @@ namespace Restpirators.Repository.Repositories
             {
                 throw new ArgumentNullException("entity");
             }
+            context.Update(entity);
             await context.SaveChangesAsync();
         }
 

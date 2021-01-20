@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { emergencyTypes, teams } from 'src/app/_helpers/data';
+import { emergencyTypes } from 'src/app/_helpers/data';
+import { Emergency } from 'src/app/_model/Emergency';
 import { GatewayService } from 'src/app/_services/gateway.service';
 import { TokenStorageService } from 'src/app/_services/token-storage.service';
 
@@ -15,7 +16,7 @@ export class PersonnelComponent implements OnInit {
   teams: Array<any>;
 
   emergencyColumns = ['location', 'type', 'description', 'reportTime', 'dispatchBtn'];
-  teamColumns = ['name', 'location', 'num', 'dispatchBtn'];
+  teamColumns = ['name', 'location', 'dispatchBtn'];
   emergencyTypes = emergencyTypes;
 
   selectedEmergency: any;
@@ -38,7 +39,12 @@ export class PersonnelComponent implements OnInit {
     this.gatewayService.getEmergencies().subscribe(
       (data) => {
         this.emergencies = data.filter((d) => d.status < 3);
-        this.teams = teams;
+      }
+    );
+    this.gatewayService.getTeams().subscribe(
+      (data) => {
+        this.teams = data;
+        console.log(this.teams);
       }
     );
   }
@@ -52,19 +58,26 @@ export class PersonnelComponent implements OnInit {
   dispatch(team): void {
     this.selectedEmergency.status = 3;
     this.selectedEmergency.assignedToTeamId = team.id;
-
-    team.assignedEmergencies.push(this.selectedEmergency);
-    console.log(this.selectedEmergency);
+    this.selectedEmergency.assignedToTeam = team;
+    team.assignedEmergencyId = this.selectedEmergency.id;
+    console.log(team);
     this.gatewayService.updateEmergency(this.selectedEmergency).subscribe(
       (res) => {
         console.log(res);
-        this.loadData();
         this.isSelected = null;
+        this.gatewayService.updateTeam(team).subscribe(
+          (next) => {
+            console.log(next);
+            this.loadData();
+          }
+        );
       },
       (error) => {
         console.log(error);
       }
     );
+
+
     this.emergencies = this.emergencies.filter((d) => d.status < 3);
     this.isSelected = false;
   }

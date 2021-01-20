@@ -5,6 +5,7 @@ import {ClientComponent} from './pages/client/client.component';
 import {ReportsComponent} from './pages/reports/reports.component';
 import {PersonnelComponent} from './pages/personnel/personnel.component';
 import {LoginComponent} from './pages/personnel/login/login.component';
+import { TeamsComponent } from './pages/teams/teams.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,10 @@ const routes: Routes = [
       {
         path: 'reports',
         component: ReportsComponent
+      },
+      {
+        path: 'teams',
+        component: TeamsComponent
       },
       {
         path: 'login',
