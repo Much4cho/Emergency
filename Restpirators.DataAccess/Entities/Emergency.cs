@@ -14,5 +14,6 @@ namespace Restpirators.DataAccess.Entities
         public string ModUser { get; set; }
         public int? AssignedToTeamId { get; set; }
         public virtual Team AssignedToTeam { get; set; }
+        public string Identifier { get; set; }
     }
 }

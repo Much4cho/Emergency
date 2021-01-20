@@ -1,4 +1,5 @@
 ﻿using Restpirators.DataAccess.Entities;
+using Restpirators.Repository;
 using Restpirators.Repository.Repositories.Abstract;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,8 @@ namespace Restpirators.Dispatcher.Services
         IAsyncEnumerable<Team> GetTeams();
         Task<Team> GetTeam(int id);
         Task UpdateTeam(Team team);
+        Task<Emergency> GetEmergencyByTeam(int id);
+        Task<EmergencyDto> GetEmergencyByIdentifier(string identifier);
     }
     public class TeamService : ITeamService
     {
@@ -43,6 +46,16 @@ namespace Restpirators.Dispatcher.Services
         {
             await _teamRepository.Update(emergency);
             await _teamRepository.SaveChanges();
+        }
+
+        public async Task<Emergency> GetEmergencyByTeam(int id)
+        {
+            return await _teamRepository.GetEmergencyByTeam(id);
+        }
+
+        public async Task<EmergencyDto> GetEmergencyByIdentifier(string identifier)
+        {
+            return await _teamRepository.GetEmergencyByIdentifier(identifier);
         }
     }
 }

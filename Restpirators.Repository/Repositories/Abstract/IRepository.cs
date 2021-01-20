@@ -11,5 +11,7 @@ namespace Restpirators.Repository.Repositories.Abstract
         public Task Insert(TEntity entity);
         public Task Update(TEntity entity);
         public Task SaveChanges();
+        Task<Emergency> GetEmergencyByTeam(int id);
+        Task<EmergencyDto> GetEmergencyByIdentifier(string identifier);
     }
 }

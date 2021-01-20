@@ -51,5 +51,29 @@ namespace Restpirators.Repository.Repositories
         {
             await context.SaveChangesAsync();
         }
+
+        public async Task<Emergency> GetEmergencyByTeam(int id)
+        {
+            return await context.Emergencies.Where(x => x.Status == Common.Enums.EmergencyStatus.TeamSent && x.AssignedToTeamId == id).FirstOrDefaultAsync();
+        }
+
+        public async Task<EmergencyDto> GetEmergencyByIdentifier(string identifier)
+        {
+            return await (from e in context.Emergencies
+                          join t in context.Teams on e.AssignedToTeamId equals t.Id
+                          join tp in context.EmergencyTypes on e.EmergencyTypeId equals tp.Id
+                          where e.Identifier == identifier
+                          orderby e.ReportTime descending
+                          select new EmergencyDto()
+                          {
+                              Description = e.Description,
+                              TeamLocation = t.Location,
+                              TeamName = t.Name,
+                              ReportDate = e.ReportTime.ToString("dd.MM.yyyy HH:mm:ss"),
+                              EmergencyType = tp.Name,
+                              Status = EmergencyStatusToStringConverter.ConvertTo(e.Status),
+                              EmergencyLocation = e.Location
+                          }).FirstOrDefaultAsync();
+        }
     }
 }
