@@ -54,6 +54,15 @@
           <td mat-cell *matCellDef="let emergency"> {{emergency.reportTime | date: 'short'}} </td>
         </ng-container>
 
+        <ng-container matColumnDef="ejectBtn">
+          <th mat-header-cell *matHeaderCellDef>  </th>
+          <td mat-cell *matCellDef="let emergency">
+            <button name="btn" mat-raised-button color="warn" [disabled]="selectedEmergency != emergency"
+              (click)="reject(emergency)"> <span name="btn"> Eject </span>
+            </button>
+          </td>
+        </ng-container>
+
         <ng-container matColumnDef="dispatchBtn">
           <th mat-header-cell *matHeaderCellDef>  </th>
           <td mat-cell *matCellDef="let emergency">

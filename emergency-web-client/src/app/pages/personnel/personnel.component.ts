@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { emergencyTypes } from 'src/app/_helpers/data';
-import { Emergency } from 'src/app/_model/Emergency';
 import { GatewayService } from 'src/app/_services/gateway.service';
 import { TokenStorageService } from 'src/app/_services/token-storage.service';
 
@@ -15,7 +14,7 @@ export class PersonnelComponent implements OnInit {
   emergencies: Array<any>;
   teams: Array<any>;
 
-  emergencyColumns = ['location', 'type', 'description', 'reportTime', 'dispatchBtn'];
+  emergencyColumns = ['location', 'type', 'description', 'reportTime', 'dispatchBtn', 'ejectBtn'];
   teamColumns = ['name', 'location', 'dispatchBtn'];
   emergencyTypes = emergencyTypes;
 
@@ -78,6 +77,18 @@ export class PersonnelComponent implements OnInit {
     );
     this.emergencies = this.emergencies.filter((d) => d.status === 1);
     this.isSelected = false;
+  }
+
+  reject(emergency) {
+    emergency.status = 4;
+    this.gatewayService.updateEmergency(this.selectedEmergency).subscribe(
+      (res) => {
+        this.isSelected = null;
+        this.loadData();
+      },
+      (error) => {
+        console.log(error);
+      });
   }
 
   checkLogin(): boolean {
