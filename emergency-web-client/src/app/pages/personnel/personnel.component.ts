@@ -38,7 +38,7 @@ export class PersonnelComponent implements OnInit {
   loadData(): void {
     this.gatewayService.getEmergencies().subscribe(
       (data) => {
-        this.emergencies = data.filter((d) => d.status < 3);
+        this.emergencies = data.filter((d) => d.status === 1);
       }
     );
     this.gatewayService.getTeams().subscribe(
@@ -56,7 +56,7 @@ export class PersonnelComponent implements OnInit {
   }
 
   dispatch(team): void {
-    this.selectedEmergency.status = 3;
+    this.selectedEmergency.status = 2;
     this.selectedEmergency.assignedToTeamId = team.id;
     this.selectedEmergency.assignedToTeam = team;
     team.assignedEmergencyId = this.selectedEmergency.id;
@@ -76,9 +76,7 @@ export class PersonnelComponent implements OnInit {
         console.log(error);
       }
     );
-
-
-    this.emergencies = this.emergencies.filter((d) => d.status < 3);
+    this.emergencies = this.emergencies.filter((d) => d.status === 1);
     this.isSelected = false;
   }
 

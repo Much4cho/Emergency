@@ -38,13 +38,18 @@
       </form>
       <mat-card>
         <mat-card-title>Assigned emergency</mat-card-title>
-        <p>Location: </p>
-        <p>Type: </p>
-        <p>Description: </p>
-        <p>Report time:</p>
-        <button mat-raised-button color="primary" (click)="endEmergency()">
-          Done <mat-icon>done</mat-icon>
-        </button>
+        <mat-card-content *ngIf="assignedEmergency != null">
+          <p>Location: {{ assignedEmergency.location }}</p>
+          <p>Type: {{ emergencyTypes[assignedEmergency.emergencyTypeId] }}</p>
+          <p>Description: {{ assignedEmergency.description }} </p>
+          <p>Report time: {{ assignedEmergency.reportTime | date: 'short' }} </p>
+          <button mat-raised-button color="primary" (click)="endEmergency()">
+            Done <mat-icon>done</mat-icon>
+          </button>
+        </mat-card-content>
+        <mat-card-content *ngIf="assignedEmergency == null">
+          No emergecy assigned
+        </mat-card-content>
       </mat-card>
     </div>
 

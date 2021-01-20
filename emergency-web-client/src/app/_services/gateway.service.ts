@@ -34,4 +34,8 @@ export class GatewayService {
     console.log(team);
     return this.http.put<any>(environment.gatewayUrl + '/teams', team);
   }
+
+  getTeamsEmergency(teamId): Observable<any> {
+    return this.http.get<any>(environment.gatewayUrl + '/teamEmergency/' + teamId);
+  }
 }

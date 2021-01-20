@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { emergencyTypes } from 'src/app/_helpers/data';
 import { Emergency } from 'src/app/_model/Emergency';
 import { Team } from 'src/app/_model/Team';
 import { GatewayService } from 'src/app/_services/gateway.service';
@@ -15,6 +16,7 @@ export class TeamsComponent implements OnInit {
 
   teams: Array<Team>;
   teamColumns = ['name', 'location', 'selectBtn'];
+  emergencyTypes = emergencyTypes;
 
   selectedTeam: Team;
   assignedEmergency: Emergency;
@@ -60,19 +62,18 @@ export class TeamsComponent implements OnInit {
     this.selectedTeam.location = this.form.value.location;
     this.gatewayService.updateTeam(this.selectedTeam).subscribe(
       (res) => {
-        // this.selectedTeam = null;
         this.loadData();
       }
     );
   }
 
   endEmergency() {
-    // this.assignedEmergency.status = 5;
-    // this.gatewayService.updateEmergency(this.assignedEmergency).subscribe(
-    //   (res) => {
-    //     this.loadData();
-    //   }
-    // );
+    this.assignedEmergency.status = 3;
+    this.gatewayService.updateEmergency(this.assignedEmergency).subscribe(
+      (res) => {
+        this.selectTeam(this.selectedTeam);
+      }
+    );
   }
 
   selectTeam(team: Team) {
@@ -81,6 +82,11 @@ export class TeamsComponent implements OnInit {
       location: [this.selectedTeam.location, Validators.required]
     }
     );
-    // TODO: get team emergency
+    this.gatewayService.getTeamsEmergency(team.id).subscribe(
+      (res) => {
+        console.log(res);
+        this.assignedEmergency = res;
+      }
+    );
   }
 }

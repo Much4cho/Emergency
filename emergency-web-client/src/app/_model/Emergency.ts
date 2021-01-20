@@ -1,16 +1,16 @@
 export class Emergency {
   Id: number;
-  EmergencyTypeId: number;
-  Location: string;
-  Description: string;
-  ReportTime: Date;
+  emergencyTypeId: number;
+  location: string;
+  description: string;
+  reportTime: Date;
   status: number;
-  ModUser: string;
+  modUser: string;
 
   constructor(type: number, location, description) {
-    this.EmergencyTypeId = type;
-    this.Location = location;
-    this.Description = description;
-    this.ReportTime = new Date();
+    this.emergencyTypeId = type;
+    this.location = location;
+    this.description = description;
+    this.reportTime = new Date();
   }
 }

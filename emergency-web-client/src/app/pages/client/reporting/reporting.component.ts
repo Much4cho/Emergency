@@ -33,7 +33,7 @@ export class ReportingComponent implements OnInit {
     );
 
     // TODO: emergencyType and modUser
-    emergency.ModUser = 'REGULAR_USER';
+    emergency.modUser = 'REGULAR_USER';
 
     this.gatewayService.addEmergency(emergency).subscribe(
       next => {
