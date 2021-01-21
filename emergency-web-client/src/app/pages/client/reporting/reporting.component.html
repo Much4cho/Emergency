@@ -4,7 +4,10 @@
     <!--  Emergency report form  -->
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <h2>Report an emergency</h2>
-      <!--      <button mat-button (click)="getLocation()">get geolocation</button>-->
+
+      <mat-form-field class="full-width-input">
+        <input matInput placeholder="PESEL" formControlName="pesel">
+      </mat-form-field>
 
       <mat-form-field class="full-width-input">
         <input matInput placeholder="Location" formControlName="location">
@@ -25,8 +28,8 @@
           <textarea rows="5" matInput formControlName="description"></textarea>
         </label>
       </mat-form-field>
-
-      <button mat-raised-button color="primary" [disabled]="!form.valid">Send</button>
+      <br>
+      <button class="submit-button" mat-raised-button color="primary" [disabled]="!form.valid">Send</button>
     </form>
 
   </mat-card-content>

@@ -19,6 +19,7 @@ export class ReportingComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
+      pesel: ['', Validators.required],
       location: ['', Validators.required],
       emergencyType: ['', Validators.required],
       description: ['', Validators.required]
@@ -29,11 +30,12 @@ export class ReportingComponent implements OnInit {
     const emergency = new Emergency(
       1, // this.emergencyTypes.indexOf(this.form.value.emergencyType),
       this.form.value.location,
-      this.form.value.description
+      this.form.value.description,
+      this.form.value.pesel
     );
 
     // TODO: emergencyType and modUser
-    emergency.ModUser = 'REGULAR_USER';
+    emergency.modUser = 'REGULAR_USER';
 
     this.gatewayService.addEmergency(emergency).subscribe(
       next => {

@@ -44,6 +44,7 @@ namespace Restpirators.Repository.Repositories
             {
                 throw new ArgumentNullException("entity");
             }
+            context.Update(entity);
             await context.SaveChangesAsync();
         }
 

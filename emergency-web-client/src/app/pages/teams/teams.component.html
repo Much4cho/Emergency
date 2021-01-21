@@ -1,0 +1,57 @@
+<mat-drawer-container>
+  <mat-drawer mode="side" position="start" [opened]="true">
+    <table mat-table [dataSource]="teams" matSort>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let team"> {{team.name}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="location">
+        <th mat-header-cell *matHeaderCellDef> Location </th>
+        <td mat-cell *matCellDef="let team"> {{team.location}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="selectBtn">
+        <th mat-header-cell *matHeaderCellDef>  </th>
+        <td mat-cell *matCellDef="let emergency">
+            <mat-radio-button (click)="selectTeam(emergency)">
+            </mat-radio-button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="teamColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: teamColumns;"></tr>
+    </table>
+  </mat-drawer>
+
+  <mat-drawer-content>
+    <p *ngIf="selectedTeam == null">Team not selected</p>
+    <div *ngIf="selectedTeam != null">
+      <h4 >{{ selectedTeam.name }}</h4>
+      <form [formGroup]="form" (ngSubmit)="changeLocation()">
+        <mat-form-field class="full-width-input">
+          <input matInput placeholder="Location" formControlName="location">
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" [disabled]="!form.valid">Change Location</button>
+      </form>
+      <mat-card>
+        <mat-card-title>Assigned emergency</mat-card-title>
+        <mat-card-content *ngIf="assignedEmergency != null">
+          <p>Location: {{ assignedEmergency.location }}</p>
+          <p>Type: {{ emergencyTypes[assignedEmergency.emergencyTypeId] }}</p>
+          <p>Description: {{ assignedEmergency.description }} </p>
+          <p>Report time: {{ assignedEmergency.reportTime | date: 'short' }} </p>
+          <button mat-raised-button color="primary" (click)="endEmergency()">
+            Done <mat-icon>done</mat-icon>
+          </button>
+        </mat-card-content>
+        <mat-card-content *ngIf="assignedEmergency == null">
+          No emergecy assigned
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+  </mat-drawer-content>
+</mat-drawer-container>
