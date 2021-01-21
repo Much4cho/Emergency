@@ -17,6 +17,7 @@
       <p>Status: {{ emergencyStatus.status }}</p>
       <p>Team name: {{ emergencyStatus.teamName }}</p>
       <p>Rescue team location: {{ emergencyStatus.teamLocation }}</p>
+      <button mat-icon-button (click)="refreshStatus()"><mat-icon>refresh</mat-icon></button>
     </div>
   </mat-card-content>
 </mat-card>

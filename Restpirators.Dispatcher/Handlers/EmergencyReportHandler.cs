@@ -26,7 +26,6 @@ namespace Restpirators.Dispatcher.Handlers
         public EmergencyReportHandler(IOptions<RabbitMqConfiguration> rabbitMqOptions,
             IEmergencyService emergencyService)
         {
-            //why this does not work???
             _hostname = rabbitMqOptions.Value.HostName;
             _queueName = "emergency";
             _username = rabbitMqOptions.Value.UserName;

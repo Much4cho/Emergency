@@ -11,6 +11,7 @@ export class StatusComponent implements OnInit {
 
   form: FormGroup;
   emergencyStatus: any;
+  identifier: any;
 
   constructor(private formBuilder: FormBuilder,
               private gatewayService: GatewayService) { }
@@ -22,7 +23,18 @@ export class StatusComponent implements OnInit {
   }
 
   getEmergencyStatus() {
-    this.gatewayService.getEmergencyStatus(this.form.value.pesel).subscribe(
+    this.identifier = this.form.value.pesel;
+    console.log(this.identifier);
+    this.gatewayService.getEmergencyStatus(this.identifier).subscribe(
+      (res) => {
+        console.log(res);
+        this.emergencyStatus = res;
+      }
+    );
+  }
+
+  refreshStatus() {
+    this.gatewayService.getEmergencyStatus(this.identifier).subscribe(
       (res) => {
         console.log(res);
         this.emergencyStatus = res;

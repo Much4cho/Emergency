@@ -30,7 +30,7 @@ namespace Restpirators.Dispatcher.Services
                 Location = emergencyReport.Location,
                 Description = emergencyReport.Description,
                 ReportTime = emergencyReport.ReportTime,
-                Status = emergencyReport.Status,
+                Status = Common.Enums.EmergencyStatus.New,
                 Identifier = emergencyReport.Identifier
             };
 
