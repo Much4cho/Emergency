@@ -38,4 +38,8 @@ export class GatewayService {
   getTeamsEmergency(teamId): Observable<any> {
     return this.http.get<any>(environment.gatewayUrl + '/teamEmergency/' + teamId);
   }
+
+  getEmergencyStatus(identifier): Observable<any> {
+    return this.http.get<any>(environment.gatewayUrl + '/emergency/' + identifier);
+  }
 }

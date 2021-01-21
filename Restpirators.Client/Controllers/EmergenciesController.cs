@@ -15,6 +15,7 @@ namespace Restpirators.Client.Controllers
         {
             if(emergency != null)
             {
+                emergency.Status = Common.Enums.EmergencyStatus.New;
                 var factory = new ConnectionFactory() 
                 { 
                     HostName = "rabbitmq",

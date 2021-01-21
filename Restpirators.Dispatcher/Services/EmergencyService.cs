@@ -31,6 +31,7 @@ namespace Restpirators.Dispatcher.Services
                 Description = emergencyReport.Description,
                 ReportTime = emergencyReport.ReportTime,
                 Status = emergencyReport.Status,
+                Identifier = emergencyReport.Identifier
             };
 
             await _emergencyRepository.Insert(entity);

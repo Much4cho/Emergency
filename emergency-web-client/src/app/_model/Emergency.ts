@@ -6,11 +6,13 @@ export class Emergency {
   reportTime: Date;
   status: number;
   modUser: string;
+  identifier: string;
 
-  constructor(type: number, location, description) {
+  constructor(type: number, location, description, identifier) {
     this.emergencyTypeId = type;
     this.location = location;
     this.description = description;
     this.reportTime = new Date();
+    this.identifier = identifier;
   }
 }

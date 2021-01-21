@@ -23,6 +23,9 @@ import {MatRadioModule} from '@angular/material/radio';
 import { authInterceptorProviders } from '../_helpers/auth.interceptor';
 import { TeamsComponent } from './teams/teams.component';
 import { MatIconModule } from '@angular/material/icon';
+import { StatusComponent } from './client/status/status.component';
+import {MatGridListModule} from '@angular/material/grid-list';
+
 
 
 @NgModule({
@@ -34,6 +37,7 @@ import { MatIconModule } from '@angular/material/icon';
     LoginComponent,
     ReportingComponent,
     TeamsComponent,
+    StatusComponent,
   ],
   imports: [
     CommonModule,
@@ -52,7 +56,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatTableModule,
     MatSortModule,
     MatRadioModule,
-    MatIconModule
+    MatIconModule,
+    MatGridListModule
   ],
   providers: [authInterceptorProviders]
 })

@@ -12,5 +12,6 @@ namespace Restpirator.Messaging
         public DateTime ReportTime { get; set; }
         public EmergencyStatus Status { get; set; }
         public string ModUser { get; set; }
+        public string Identifier { get; set; }
     }
 }

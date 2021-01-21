@@ -14,7 +14,7 @@ export class PersonnelComponent implements OnInit {
   emergencies: Array<any>;
   teams: Array<any>;
 
-  emergencyColumns = ['location', 'type', 'description', 'reportTime', 'dispatchBtn', 'ejectBtn'];
+  emergencyColumns = ['location', 'type', 'description', 'reportTime', 'ejectBtn', 'dispatchBtn'];
   teamColumns = ['name', 'location', 'dispatchBtn'];
   emergencyTypes = emergencyTypes;
 
@@ -37,7 +37,7 @@ export class PersonnelComponent implements OnInit {
   loadData(): void {
     this.gatewayService.getEmergencies().subscribe(
       (data) => {
-        this.emergencies = data.filter((d) => d.status === 1);
+        this.emergencies = data.filter((d) => d.status < 2);
       }
     );
     this.gatewayService.getTeams().subscribe(
@@ -75,7 +75,7 @@ export class PersonnelComponent implements OnInit {
         console.log(error);
       }
     );
-    this.emergencies = this.emergencies.filter((d) => d.status === 1);
+    this.emergencies = this.emergencies.filter((d) => d.status < 2);
     this.isSelected = false;
   }
 
