@@ -60,7 +60,8 @@ namespace Restpirators.Repository.Repositories
         public async Task<EmergencyDto> GetEmergencyByIdentifier(string identifier)
         {
             return await (from e in context.Emergencies
-                          join t in context.Teams on e.AssignedToTeamId equals t.Id
+                          join t in context.Teams on e.AssignedToTeamId equals t.Id into td
+                          from t in td.DefaultIfEmpty()
                           join tp in context.EmergencyTypes on e.EmergencyTypeId equals tp.Id
                           where e.Identifier == identifier
                           orderby e.ReportTime descending
