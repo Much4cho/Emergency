@@ -1,4 +1,14 @@
-export const emergencyTypes = ['Bleeding', 'Breathing difficulties', 'Car crash', 'Faint', 'Fit and/or epileptic seizure', 'Heart attack', 'Severe pain', 'Stroke', 'Other'];
+export const emergencyTypes = [
+  'Wypadek samochodowy',
+  'Porażenie prądem',
+  'Podtopienie',
+  'Pobicie',
+  'Zachłyśnięcie',
+  'Opażenie',
+  'Zawał',
+  'Omdlenie',
+  'Wylew'
+];
 
 export let teams = [
   {

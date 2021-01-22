@@ -3,18 +3,18 @@
 
     <!--  Emergency report form  -->
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
-      <h2>Report an emergency</h2>
+      <h2>Zgłoś nagły wypadek</h2>
 
       <mat-form-field class="full-width-input">
-        <input matInput placeholder="PESEL" formControlName="pesel">
+        <input matInput placeholder="Identyfikator" formControlName="pesel">
       </mat-form-field>
 
       <mat-form-field class="full-width-input">
-        <input matInput placeholder="Location" formControlName="location">
+        <input matInput placeholder="Lokalizacja" formControlName="location">
       </mat-form-field>
 
       <mat-form-field class="full-width-input">
-        <mat-label>Emergency type</mat-label>
+        <mat-label>Rodzaj zdarzenia</mat-label>
         <mat-select placeholder="Emergency type" formControlName="emergencyType">
           <mat-option *ngFor="let type of emergencyTypes" [value]="type">
             {{type}}
@@ -23,13 +23,13 @@
       </mat-form-field>
 
       <mat-form-field class="example-full-width">
-        <mat-label>Description</mat-label>
+        <mat-label>Opis</mat-label>
         <label>
           <textarea rows="5" matInput formControlName="description"></textarea>
         </label>
       </mat-form-field>
       <br>
-      <button class="submit-button" mat-raised-button color="primary" [disabled]="!form.valid">Send</button>
+      <button class="submit-button" mat-raised-button color="primary" [disabled]="!form.valid">Wyślij</button>
     </form>
 
   </mat-card-content>

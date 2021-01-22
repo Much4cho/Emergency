@@ -1,22 +1,22 @@
 <mat-card>
   <mat-card-content>
-    <h2>Check emergency status</h2>
+    <h2>Sprawdź status zgłoszenia</h2>
 
     <form [formGroup]="form" (ngSubmit)="getEmergencyStatus()">
       <mat-form-field class="full-width-input">
-        <input matInput placeholder="PESEL" formControlName="pesel">
+        <input matInput placeholder="Identyfikator" formControlName="pesel">
       </mat-form-field>
 
-      <button class="submit-button" mat-raised-button color="primary" [disabled]="!form.valid">Send</button>
+      <button class="submit-button" mat-raised-button color="primary" [disabled]="!form.valid">Wyślij</button>
     </form>
 
     <div *ngIf="emergencyStatus != null">
-      <p>Report date: {{ emergencyStatus.reportDate }}</p>
-      <p>Emergency location: {{ emergencyStatus.emergencyLocation }}</p>
-      <p>Description: {{ emergencyStatus.description }}</p>
+      <p>Czas zgłoszenia: {{ emergencyStatus.reportDate }}</p>
+      <p>Miejsce zdarzenia: {{ emergencyStatus.emergencyLocation }}</p>
+      <p>Opis: {{ emergencyStatus.description }}</p>
       <p>Status: {{ emergencyStatus.status }}</p>
-      <p>Team name: {{ emergencyStatus.teamName }}</p>
-      <p>Rescue team location: {{ emergencyStatus.teamLocation }}</p>
+      <p>Zespół ratunkowy: {{ emergencyStatus.teamName }}</p>
+      <p>Lokalizacja zespołu ratunkowego: {{ emergencyStatus.teamLocation }}</p>
       <button mat-icon-button (click)="refreshStatus()"><mat-icon>refresh</mat-icon></button>
     </div>
   </mat-card-content>
