@@ -34,6 +34,7 @@ namespace Restpirators.Analyzer
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMongoDb(Configuration);
             services.AddControllers();
             services.AddScoped<IEmergenciesRepository, EmergenciesRepository>();
             services.AddCors();

@@ -19,48 +19,49 @@ namespace Restpirators.Repository.Repositories
             this.context = context;
             entities = context.Set<TEntity>();
         }
-        public IAsyncEnumerable<TEntity> GetAll()
+        public IEnumerable<TEntity> GetAll()
         {
-            return entities.AsAsyncEnumerable();
+            return entities.ToList();
         }
 
-        public async Task<TEntity> Get(int id)
+        public TEntity Get(int id)
         {
-            return await entities.SingleOrDefaultAsync(s => s.Id == id);
+            return entities.FirstOrDefault(s => s.Id == id);
         }
-        public async Task Insert(TEntity entity)
+        public int Insert(TEntity entity)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException("entity");
             }
-            await entities.AddAsync(entity);
-            await context.SaveChangesAsync();
+            entities.Add(entity);
+            context.SaveChanges();
+            return entity.Id;
         }
 
-        public async Task Update(TEntity entity)
+        public void Update(TEntity entity)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException("entity");
             }
             context.Update(entity);
-            await context.SaveChangesAsync();
+            context.SaveChanges();
         }
 
-        public async Task SaveChanges()
+        public void SaveChanges()
         {
-            await context.SaveChangesAsync();
+            context.SaveChanges();
         }
 
-        public async Task<Emergency> GetEmergencyByTeam(int id)
+        public Emergency GetEmergencyByTeam(int id)
         {
-            return await context.Emergencies.Where(x => x.Status == Common.Enums.EmergencyStatus.TeamSent && x.AssignedToTeamId == id).FirstOrDefaultAsync();
+            return context.Emergencies.Where(x => x.Status == Common.Enums.EmergencyStatus.TeamSent && x.AssignedToTeamId == id).FirstOrDefault();
         }
 
-        public async Task<EmergencyDto> GetEmergencyByIdentifier(string identifier)
+        public EmergencyDto GetEmergencyByIdentifier(string identifier)
         {
-            return await (from e in context.Emergencies
+            return (from e in context.Emergencies
                           join t in context.Teams on e.AssignedToTeamId equals t.Id into td
                           from t in td.DefaultIfEmpty()
                           join tp in context.EmergencyTypes on e.EmergencyTypeId equals tp.Id
@@ -75,7 +76,7 @@ namespace Restpirators.Repository.Repositories
                               EmergencyType = tp.Name,
                               Status = EmergencyStatusToStringConverter.ConvertTo(e.Status),
                               EmergencyLocation = e.Location
-                          }).FirstOrDefaultAsync();
+                          }).FirstOrDefault();
         }
     }
 }

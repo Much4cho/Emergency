@@ -34,12 +34,12 @@ namespace Restpirators.Analyzer.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
-        [HttpGet("getTimeStatistics"), Description("Get time statistics")]
-        public IActionResult GetTimeStatistics()
+        [HttpGet("getTimeStatistics/{year}/{month}"), Description("Get time statistics")]
+        public IActionResult GetTimeStatistics(int year, int month)
         {
             try
             {
-                return Ok(_emergenciesRepository.GetEmergencyTimeStatistics());
+                return Ok(_emergenciesRepository.GetEmergencyTimeStatistics(year == 0 ? (int?)null : year, month == 0 ? (int?)null : month));
             }
             catch (Exception ex)
             {

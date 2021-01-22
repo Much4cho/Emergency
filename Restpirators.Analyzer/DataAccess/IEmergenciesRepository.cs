@@ -8,7 +8,7 @@ namespace Restpirators.Analyzer.DataAccess
     public interface IEmergenciesRepository
     {
         IEnumerable<DtoQuantityStatistic> GetEmergencyQuantityStatistics(int? year, int? month);
-        IEnumerable<DtoTimeStatistic> GetEmergencyTimeStatistics();
+        IEnumerable<DtoTimeStatistic> GetEmergencyTimeStatistics(int? year, int? month);
         void InsertEmergencyHistory(EmergencyHistory emergencyHistory);
     }
 }

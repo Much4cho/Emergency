@@ -10,6 +10,7 @@ namespace Restpirators.Auth.DataAccess
     {
         User GetUser(string userName);
         void InsertUser(User user);
+        IEnumerable<User> GetUsers();
     }
     public class UserRepository : IUserRepository
     {
@@ -25,6 +26,12 @@ namespace Restpirators.Auth.DataAccess
             var col = _db.GetCollection<User>(User.DocumentName);
             var user = col.Find(u => u.Username == username).FirstOrDefault();
             return user;
+        }
+
+        public IEnumerable<User> GetUsers()
+        {
+            var col = _db.GetCollection<User>(User.DocumentName);
+            return col.Find(x => true).ToList();
         }
 
         public void InsertUser(User user)

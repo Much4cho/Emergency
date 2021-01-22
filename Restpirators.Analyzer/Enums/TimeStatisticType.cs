@@ -7,11 +7,8 @@ namespace Restpirators.Analyzer.Enums
 {
     public enum TimeStatisticType
     {
-        AcceptedToNew = 1,
-        TeamSentToNew = 2,
-        TeamSentToAccepted = 3,
-        DoneToNew = 4,
-        DoneToAccepted = 5,
-        DoneToTeamSent = 6
+        TeamSentToNew = 1,
+        DoneToNew = 2,
+        DoneToTeamSent = 3
     }
 }

@@ -10,12 +10,12 @@ namespace Restpirators.Dispatcher.Services
 {
     public interface ITeamService
     {
-        Task AddTeam(Team team);
-        IAsyncEnumerable<Team> GetTeams();
-        Task<Team> GetTeam(int id);
-        Task UpdateTeam(Team team);
-        Task<Emergency> GetEmergencyByTeam(int id);
-        Task<EmergencyDto> GetEmergencyByIdentifier(string identifier);
+        void AddTeam(Team team);
+        IEnumerable<Team> GetTeams();
+        Team GetTeam(int id);
+        void UpdateTeam(Team team);
+        Emergency GetEmergencyByTeam(int id);
+        EmergencyDto GetEmergencyByIdentifier(string identifier);
     }
     public class TeamService : ITeamService
     {
@@ -26,36 +26,36 @@ namespace Restpirators.Dispatcher.Services
             _teamRepository = teamRepository;
         }
 
-        public async Task AddTeam(Team team)
+        public void AddTeam(Team team)
         {
-            await _teamRepository.Insert(team);
-            await _teamRepository.SaveChanges();
+            _teamRepository.Insert(team);
+            //_teamRepository.SaveChanges();
         }
 
-        public IAsyncEnumerable<Team> GetTeams()
+        public IEnumerable<Team> GetTeams()
         {
             return _teamRepository.GetAll();
         }
 
-        public async Task<Team> GetTeam(int id)
+        public Team GetTeam(int id)
         {
-            return await _teamRepository.Get(id);
+            return _teamRepository.Get(id);
         }
 
-        public async Task UpdateTeam(Team emergency)
+        public void UpdateTeam(Team emergency)
         {
-            await _teamRepository.Update(emergency);
-            await _teamRepository.SaveChanges();
+            _teamRepository.Update(emergency);
+            //_teamRepository.SaveChanges();
         }
 
-        public async Task<Emergency> GetEmergencyByTeam(int id)
+        public Emergency GetEmergencyByTeam(int id)
         {
-            return await _teamRepository.GetEmergencyByTeam(id);
+            return _teamRepository.GetEmergencyByTeam(id);
         }
 
-        public async Task<EmergencyDto> GetEmergencyByIdentifier(string identifier)
+        public EmergencyDto GetEmergencyByIdentifier(string identifier)
         {
-            return await _teamRepository.GetEmergencyByIdentifier(identifier);
+            return _teamRepository.GetEmergencyByIdentifier(identifier);
         }
     }
 }

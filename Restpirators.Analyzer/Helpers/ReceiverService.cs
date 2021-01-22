@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace Restpirators.Analyzer.Helpers
 {
@@ -25,22 +26,28 @@ namespace Restpirators.Analyzer.Helpers
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
             stoppingToken.ThrowIfCancellationRequested();
-            var factory = new ConnectionFactory() 
-            { 
+            var factory = new ConnectionFactory()
+            {
                 HostName = "rabbitmq",
                 Port = 5672,
                 UserName = "guest",
-                Password = "guest" 
+                Password = "guest"
             };
             var connection = factory.CreateConnection();
             var channel = connection.CreateModel();
-            channel.QueueDeclare(queue: "queueName", durable: false, exclusive: false, autoDelete: false, arguments: null);
+            channel.QueueDeclare(queue: "statistics", durable: false, exclusive: false, autoDelete: false, arguments: null);
             var consumer = new EventingBasicConsumer(channel);
-            consumer.Received += Consumer_Received;
-            channel.BasicConsume(queue: "queueName", autoAck: true, consumer: consumer);
+            //consumer.Received += Consumer_Received;
+            consumer.Received += (ch, ea) =>
+            {
+                Consumer_Received(ea);
+
+                channel.BasicAck(ea.DeliveryTag, false);
+            };
+            channel.BasicConsume(queue: "statistics", autoAck: false, consumer: consumer);
             return Task.CompletedTask;
         }
-        private void Consumer_Received(object sender, BasicDeliverEventArgs e)
+        private void Consumer_Received(BasicDeliverEventArgs e)
         {
             var body = e.Body.ToArray();
             var message = Encoding.UTF8.GetString(body);

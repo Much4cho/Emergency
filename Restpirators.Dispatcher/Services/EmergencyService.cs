@@ -8,10 +8,10 @@ namespace Restpirators.Dispatcher.Services
 {
     public interface IEmergencyService
     {
-        Task AddEmergency(EmergencyReport emergencyReport);
-        IAsyncEnumerable<Emergency> GetEmergencies();
-        Task<Emergency> GetEmergency(int id);
-        Task UpdateEmergency(Emergency emergency);
+        int AddEmergency(EmergencyReport emergencyReport);
+        IEnumerable<Emergency> GetEmergencies();
+        Emergency GetEmergency(int id);
+        void UpdateEmergency(Emergency emergency);
     }
     public class EmergencyService : IEmergencyService
     {
@@ -22,7 +22,7 @@ namespace Restpirators.Dispatcher.Services
             _emergencyRepository = emergencyRepository;
         }
 
-        public async Task AddEmergency(EmergencyReport emergencyReport)
+        public int AddEmergency(EmergencyReport emergencyReport)
         {
             var entity = new Emergency
             {
@@ -34,24 +34,24 @@ namespace Restpirators.Dispatcher.Services
                 Identifier = emergencyReport.Identifier
             };
 
-            await _emergencyRepository.Insert(entity);
-            await _emergencyRepository.SaveChanges();
+            return _emergencyRepository.Insert(entity);
+            //await _emergencyRepository.SaveChanges();
         }
 
-        public IAsyncEnumerable<Emergency> GetEmergencies()
+        public IEnumerable<Emergency> GetEmergencies()
         {
             return _emergencyRepository.GetAll();
         }
 
-        public async Task<Emergency> GetEmergency(int id)
+        public Emergency GetEmergency(int id)
         {
-            return await _emergencyRepository.Get(id);
+            return _emergencyRepository.Get(id);
         }
 
-        public async Task UpdateEmergency(Emergency emergency)
+        public void UpdateEmergency(Emergency emergency)
         {
-            await _emergencyRepository.Update(emergency);
-            await _emergencyRepository.SaveChanges();
+             _emergencyRepository.Update(emergency);
+            //await _emergencyRepository.SaveChanges();
         }
     }
 }

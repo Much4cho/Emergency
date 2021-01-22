@@ -31,7 +31,7 @@
       }
     },
     {
-      "DownstreamPathTemplate": "/statistics/getTimeStatistics",
+      "DownstreamPathTemplate": "/statistics/getTimeStatistics/{year}/{month}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -39,7 +39,7 @@
           "Port": 80
         }
       ],
-      "UpstreamPathTemplate": "/statistics/getTimeStatistics",
+      "UpstreamPathTemplate": "/statistics/getTimeStatistics/{year}/{month}",
       "UpstreamHttpMethod": [ "GET" ],
       "SwaggerKey": "statistics",
       "AuthenticationOptions": {
@@ -194,6 +194,19 @@
         }
       ],
       "UpstreamPathTemplate": "/validate",
+      "UpstreamHttpMethod": [ "GET" ],
+      "SwaggerKey": "auth"
+    },
+    {
+      "DownstreamPathTemplate": "/users",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "auth",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/users",
       "UpstreamHttpMethod": [ "GET" ],
       "SwaggerKey": "auth"
     }

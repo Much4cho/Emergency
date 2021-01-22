@@ -87,5 +87,11 @@ namespace Restpirators.Auth
 
             return new OkObjectResult(userId);
         }
+        [HttpGet]
+        public IActionResult GetAllUsers()
+        {
+            var u = _userRepository.GetUsers();
+            return new OkObjectResult(u);
+        }
     }
 }

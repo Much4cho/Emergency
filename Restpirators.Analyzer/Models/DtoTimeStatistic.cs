@@ -8,7 +8,7 @@ namespace Restpirators.Analyzer.Models
     public class DtoTimeStatistic
     {
         public TimeStatisticType StatisticType { get; set; }
-        public TimeSpan TimeAverage { get; set; }
+        public string TimeAverage { get; set; }
         public string EmergencyType { get; set; }
     }
 }

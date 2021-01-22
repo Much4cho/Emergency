@@ -26,34 +26,34 @@ namespace Restpirators.Dispatcher.Controllers
         }
 
         [HttpGet]
-        public IAsyncEnumerable<Team> Get()
+        public IEnumerable<Team> Get()
         {
             return _teamService.GetTeams();
         }
 
         [HttpGet]
         [Route("{id}")]
-        public async Task<Team> Get(int id)
+        public Team Get(int id)
         {
-            return await _teamService.GetTeam(id);
+            return _teamService.GetTeam(id);
         }
 
         [HttpPut]
-        public async Task Update([FromBody] Team team)
+        public void Update([FromBody] Team team)
         { 
-            await _teamService.UpdateTeam(team);
+            _teamService.UpdateTeam(team);
         }
         [HttpGet]
         [Route("teamEmergency/{id}")]
-        public async Task<Emergency> GetEmergencyByTeam(int id)
+        public Emergency GetEmergencyByTeam(int id)
         {
-            return await _teamService.GetEmergencyByTeam(id);
+            return _teamService.GetEmergencyByTeam(id);
         }
         [HttpGet]
         [Route("emergency/{identifier}")]
-        public async Task<EmergencyDto> GetEmergencyByIdentifier(string identifier)
+        public EmergencyDto GetEmergencyByIdentifier(string identifier)
         {
-            return await _teamService.GetEmergencyByIdentifier(identifier);
+            return _teamService.GetEmergencyByIdentifier(identifier);
         }
     }
 }
