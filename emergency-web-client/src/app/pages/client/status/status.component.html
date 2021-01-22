@@ -11,7 +11,7 @@
     </form>
 
     <div *ngIf="emergencyStatus != null">
-      <p>Report date: {{ emergencyStatus.reportDate | date: 'short' }}</p>
+      <p>Report date: {{ emergencyStatus.reportDate }}</p>
       <p>Emergency location: {{ emergencyStatus.emergencyLocation }}</p>
       <p>Description: {{ emergencyStatus.description }}</p>
       <p>Status: {{ emergencyStatus.status }}</p>

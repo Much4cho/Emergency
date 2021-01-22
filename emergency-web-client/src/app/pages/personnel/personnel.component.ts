@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { emergencyTypes } from 'src/app/_helpers/data';
 import { GatewayService } from 'src/app/_services/gateway.service';
@@ -13,6 +14,7 @@ export class PersonnelComponent implements OnInit {
 
   emergencies: Array<any>;
   teams: Array<any>;
+  teamsSource: MatTableDataSource<any>;
 
   emergencyColumns = ['location', 'type', 'description', 'reportTime', 'ejectBtn', 'dispatchBtn'];
   teamColumns = ['name', 'location', 'dispatchBtn'];
@@ -35,6 +37,8 @@ export class PersonnelComponent implements OnInit {
   }
 
   loadData(): void {
+    this.teamsSource = null;
+    // this.teams = null;
     this.gatewayService.getEmergencies().subscribe(
       (data) => {
         this.emergencies = data.filter((d) => d.status < 2);
@@ -42,8 +46,7 @@ export class PersonnelComponent implements OnInit {
     );
     this.gatewayService.getTeams().subscribe(
       (data) => {
-        this.teams = data;
-        console.log(this.teams);
+        data.forEach((t) => this.isTeamBusy(t));
       }
     );
   }
@@ -84,7 +87,11 @@ export class PersonnelComponent implements OnInit {
     this.gatewayService.updateEmergency(this.selectedEmergency).subscribe(
       (res) => {
         this.isSelected = null;
-        this.loadData();
+        this.gatewayService.getEmergencies().subscribe(
+          (data) => {
+            this.emergencies = data.filter((d) => d.status < 2);
+          }
+        );
       },
       (error) => {
         console.log(error);
@@ -101,4 +108,17 @@ export class PersonnelComponent implements OnInit {
     }
   }
 
+  isTeamBusy(team) {
+    this.gatewayService.getTeamsEmergency(team.id).subscribe(
+      (res) => {
+        console.log(res);
+        if (res == null) {
+          if (this.teams.filter(e => e.id === team.id).length === 0) {
+            this.teams.push(team);
+          }
+          console.log(this.teams);
+          this.teamsSource = new MatTableDataSource(this.teams);
+        }
+      });
+  }
 }

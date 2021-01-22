@@ -1,7 +1,10 @@
 <mat-drawer-container>
 
   <mat-drawer mode="side" position="end" [opened]="true">
-    <table mat-table [dataSource]="teams" matSort>
+    <mat-card>
+      <mat-card-title>Teams</mat-card-title>
+    </mat-card>
+    <table mat-table [dataSource]="teamsSource" matSort>
 
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef> Name </th>
@@ -14,7 +17,9 @@
         </ng-container>
 
         <ng-container matColumnDef="dispatchBtn">
-          <th mat-header-cell *matHeaderCellDef>  </th>
+          <th mat-header-cell *matHeaderCellDef>
+
+          </th>
           <td mat-cell *matCellDef="let emergency">
             <button name="btn" mat-raised-button color="accent" [disabled]="!isSelected"
               (click)="dispatch(emergency)"> <span name="btn"> Assign </span>
@@ -28,6 +33,12 @@
   </mat-drawer>
 
   <mat-drawer-content>
+    <mat-card>
+      <mat-card-title>
+        Emergencies
+
+      </mat-card-title>
+    </mat-card>
     <table mat-table [dataSource]="emergencies" matSort>
 
       <!--  Location column  -->
@@ -45,7 +56,7 @@
       <!--  Description column  -->
         <ng-container matColumnDef="description">
           <th mat-header-cell *matHeaderCellDef> Description </th>
-          <td mat-cell *matCellDef="let emergency"> {{emergency.description}} </td>
+          <td mat-cell *matCellDef="let emergency"> {{emergency.status}} </td>
         </ng-container>
 
       <!--  Report time column  -->
@@ -55,10 +66,14 @@
         </ng-container>
 
         <ng-container matColumnDef="ejectBtn">
-          <th mat-header-cell *matHeaderCellDef>  </th>
+          <th mat-header-cell *matHeaderCellDef>
+            <button mat-icon-button class="refresh-btn" (click)="loadData()">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </th>
           <td mat-cell *matCellDef="let emergency">
             <button name="btn" mat-raised-button color="warn" [disabled]="selectedEmergency != emergency"
-              (click)="reject(emergency)"> <span name="btn"> Eject </span>
+              (click)="reject(emergency)"> <span name="btn"> Reject </span>
             </button>
           </td>
         </ng-container>
