@@ -1,0 +1,38 @@
+<!-- // vertical-bar-chart  emergency-type / count
+// 3 X vertical-bar-chart emergency-type / time -->
+
+<mat-card>
+  <form [formGroup]="formGroup">
+    <mat-form-field>
+      <mat-label> Rok </mat-label>
+      <mat-select matInput formControlName="year">
+        <mat-option *ngFor="let year of years" [value]="year">
+          {{year}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label> Miesiąc </mat-label>
+      <mat-select matInput formControlName="month">
+        <mat-option *ngFor="let month of months" [value]="month">
+        {{month}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!formGroup.valid"
+      (click)="submitForm()"> Generuj raport </button>
+  </form>
+</mat-card>
+
+
+<ngx-charts-bar-vertical
+  [results]="stats"
+  [gradient]="gradient"
+  [xAxis]="showXAxis"
+  [yAxis]="showYAxis"
+  [legend]="showLegend"
+  [showXAxisLabel]="showXAxisLabel"
+  [showYAxisLabel]="showYAxisLabel"
+  [xAxisLabel]="xAxisLabel"
+  [yAxisLabel]="yAxisLabel">
+</ngx-charts-bar-vertical>

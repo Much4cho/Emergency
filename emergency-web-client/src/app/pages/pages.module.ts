@@ -25,6 +25,8 @@ import { TeamsComponent } from './teams/teams.component';
 import { MatIconModule } from '@angular/material/icon';
 import { StatusComponent } from './client/status/status.component';
 import {MatGridListModule} from '@angular/material/grid-list';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -57,7 +59,9 @@ import {MatGridListModule} from '@angular/material/grid-list';
     MatSortModule,
     MatRadioModule,
     MatIconModule,
-    MatGridListModule
+    MatGridListModule,
+    NgxChartsModule,
+    BrowserAnimationsModule
   ],
   providers: [authInterceptorProviders]
 })
