@@ -38,7 +38,7 @@ export class PersonnelComponent implements OnInit {
 
   loadData(): void {
     this.teamsSource = null;
-    // this.teams = null;
+    this.teams = new Array();
     this.gatewayService.getEmergencies().subscribe(
       (data) => {
         this.emergencies = data.filter((d) => d.status < 2);
@@ -80,6 +80,7 @@ export class PersonnelComponent implements OnInit {
     );
     this.emergencies = this.emergencies.filter((d) => d.status < 2);
     this.isSelected = false;
+    this.loadData();
   }
 
   reject(emergency) {
@@ -116,7 +117,6 @@ export class PersonnelComponent implements OnInit {
           if (this.teams.filter(e => e.id === team.id).length === 0) {
             this.teams.push(team);
           }
-          console.log(this.teams);
           this.teamsSource = new MatTableDataSource(this.teams);
         }
       });

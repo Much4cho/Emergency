@@ -1,20 +1,20 @@
 <mat-nav-list>
   <a mat-list-item routerLinkActive="list-item-active" routerLink="/home/client">
-    <mat-icon>notification_important</mat-icon>Client
+    <mat-icon>notification_important</mat-icon>Nagłe wypadki
   </a>
   <a *ngIf="isLoggedIn" mat-list-item routerLinkActive="list-item-active" routerLink="/home/personnel">
-    <mat-icon>medical_services</mat-icon>Personnel
+    <mat-icon>medical_services</mat-icon>Dyspozytor
   </a>
   <a *ngIf="isLoggedIn" mat-list-item routerLinkActive="list-item-active" routerLink="/home/reports">
-    <mat-icon>insert_chart</mat-icon>Reports
+    <mat-icon>insert_chart</mat-icon>Raporty
   </a>
   <a *ngIf="isLoggedIn" mat-list-item routerLinkActive="list-item-active" routerLink="/home/teams">
-    <mat-icon>group</mat-icon>Teams
+    <mat-icon>group</mat-icon>Zespoły ratunkowe
   </a>
   <a *ngIf="!isLoggedIn" mat-list-item routerLinkActive="list-item-active" routerLink="/home/login">
-    <mat-icon>login</mat-icon>Login
+    <mat-icon>login</mat-icon>Zaloguj
   </a>
   <a *ngIf="isLoggedIn" mat-list-item routerLinkActive="list-item-active" (click)="logout()">
-    <mat-icon>logout</mat-icon>Logout
+    <mat-icon>logout</mat-icon>Wyloguj
   </a>
 </mat-nav-list>

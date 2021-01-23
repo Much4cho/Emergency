@@ -2,17 +2,17 @@
 
   <mat-drawer mode="side" position="end" [opened]="true">
     <mat-card>
-      <mat-card-title>Teams</mat-card-title>
+      <mat-card-title>Dostępne zespoły ratunkowe</mat-card-title>
     </mat-card>
     <table mat-table [dataSource]="teamsSource" matSort>
 
         <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <th mat-header-cell *matHeaderCellDef> Nazwa </th>
           <td mat-cell *matCellDef="let team"> {{team.name}} </td>
         </ng-container>
 
         <ng-container matColumnDef="location">
-          <th mat-header-cell *matHeaderCellDef> Location </th>
+          <th mat-header-cell *matHeaderCellDef> Lokalizacja </th>
           <td mat-cell *matCellDef="let team"> {{team.location}} </td>
         </ng-container>
 
@@ -22,7 +22,7 @@
           </th>
           <td mat-cell *matCellDef="let emergency">
             <button name="btn" mat-raised-button color="accent" [disabled]="!isSelected"
-              (click)="dispatch(emergency)"> <span name="btn"> Assign </span>
+              (click)="dispatch(emergency)"> <span name="btn"> Przydziel </span>
             </button>
           </td>
         </ng-container>
@@ -35,33 +35,32 @@
   <mat-drawer-content>
     <mat-card>
       <mat-card-title>
-        Emergencies
-
+        Nagłe wypadki
       </mat-card-title>
     </mat-card>
     <table mat-table [dataSource]="emergencies" matSort>
 
       <!--  Location column  -->
         <ng-container matColumnDef="location">
-          <th mat-header-cell *matHeaderCellDef> Location </th>
+          <th mat-header-cell *matHeaderCellDef> Lokalizacja </th>
           <td mat-cell *matCellDef="let emergency"> {{emergency.location}} </td>
         </ng-container>
 
       <!--  Type column  -->
         <ng-container matColumnDef="type">
-          <th mat-header-cell *matHeaderCellDef> type </th>
-          <td mat-cell *matCellDef="let emergency"> {{emergencyTypes[emergency.emergencyTypeId]}} </td>
+          <th mat-header-cell *matHeaderCellDef> Rodzaj zdarzenia </th>
+          <td mat-cell *matCellDef="let emergency"> {{emergencyTypes[emergency.emergencyTypeId - 1]}} </td>
         </ng-container>
 
       <!--  Description column  -->
         <ng-container matColumnDef="description">
-          <th mat-header-cell *matHeaderCellDef> Description </th>
-          <td mat-cell *matCellDef="let emergency"> {{emergency.status}} </td>
+          <th mat-header-cell *matHeaderCellDef> Opis </th>
+          <td mat-cell *matCellDef="let emergency"> {{emergency.description}} </td>
         </ng-container>
 
       <!--  Report time column  -->
         <ng-container matColumnDef="reportTime">
-          <th mat-header-cell *matHeaderCellDef> Report time </th>
+          <th mat-header-cell *matHeaderCellDef> Czas zgłoszenia </th>
           <td mat-cell *matCellDef="let emergency"> {{emergency.reportTime | date: 'short'}} </td>
         </ng-container>
 
@@ -73,7 +72,7 @@
           </th>
           <td mat-cell *matCellDef="let emergency">
             <button name="btn" mat-raised-button color="warn" [disabled]="selectedEmergency != emergency"
-              (click)="reject(emergency)"> <span name="btn"> Reject </span>
+              (click)="reject(emergency)"> <span name="btn"> Odrzuć </span>
             </button>
           </td>
         </ng-container>

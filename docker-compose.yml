@@ -31,7 +31,6 @@ services:
       - MONGO_LOG_DIR=/dev/null
     ports:
       - 27018:27017
-    # command: mongod --smallfiles --logpath=/dev/null
 
   client:
     container_name: client

@@ -28,7 +28,7 @@ export class ReportingComponent implements OnInit {
 
   onSubmit() {
     const emergency = new Emergency(
-      1, // this.emergencyTypes.indexOf(this.form.value.emergencyType),
+      this.emergencyTypes.indexOf(this.form.value.emergencyType) + 1,
       this.form.value.location,
       this.form.value.description,
       this.form.value.pesel
