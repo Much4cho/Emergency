@@ -1,6 +1,3 @@
-<!-- // vertical-bar-chart  emergency-type / count
-// 3 X vertical-bar-chart emergency-type / time -->
-
 <mat-card>
   <form [formGroup]="formGroup">
     <mat-form-field>
@@ -24,15 +21,65 @@
   </form>
 </mat-card>
 
-
-<ngx-charts-bar-vertical
-  [results]="stats"
-  [gradient]="gradient"
-  [xAxis]="showXAxis"
-  [yAxis]="showYAxis"
-  [legend]="showLegend"
-  [showXAxisLabel]="showXAxisLabel"
-  [showYAxisLabel]="showYAxisLabel"
-  [xAxisLabel]="xAxisLabel"
-  [yAxisLabel]="yAxisLabel">
+<mat-grid-list cols="2" rowHeight="500px">
+  <mat-grid-tile>
+    <ngx-charts-bar-vertical
+      [view]="view"
+      [results]="stats"
+      [gradient]="gradient"
+      [xAxis]="showXAxis"
+      [yAxis]="showYAxis"
+      [legend]="showLegend"
+      [showXAxisLabel]="showXAxisLabel"
+      [showYAxisLabel]="showYAxisLabel"
+      [xAxisLabel]="xAxisLabel1"
+      [yAxisLabel]="yAxisLabel1">
+    </ngx-charts-bar-vertical>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <ngx-charts-bar-vertical
+      [view]="view"
+      [results]="timeStats1"
+      [gradient]="gradient"
+      [xAxis]="showXAxis"
+      [yAxis]="showYAxis"
+      [legend]="showLegend"
+      [showXAxisLabel]="showXAxisLabel"
+      [showYAxisLabel]="showYAxisLabel"
+      [xAxisLabel]="xAxisLabel2"
+      [yAxisLabel]="yAxisLabel2">
+    </ngx-charts-bar-vertical>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <ngx-charts-bar-vertical
+      [view]="view"
+      [results]="timeStats3"
+      [gradient]="gradient"
+      [xAxis]="showXAxis"
+      [yAxis]="showYAxis"
+      [legend]="showLegend"
+      [showXAxisLabel]="showXAxisLabel"
+      [showYAxisLabel]="showYAxisLabel"
+      [xAxisLabel]="xAxisLabel4"
+      [yAxisLabel]="yAxisLabel2">
 </ngx-charts-bar-vertical>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <ngx-charts-bar-vertical
+      [view]="view"
+      [results]="timeStats2"
+      [gradient]="gradient"
+      [xAxis]="showXAxis"
+      [yAxis]="showYAxis"
+      [legend]="showLegend"
+      [showXAxisLabel]="showXAxisLabel"
+      [showYAxisLabel]="showYAxisLabel"
+      [xAxisLabel]="xAxisLabel3"
+      [yAxisLabel]="yAxisLabel2">
+    </ngx-charts-bar-vertical>
+  </mat-grid-tile>
+
+
+
+
+

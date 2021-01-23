@@ -18,6 +18,9 @@ export class ReportsComponent implements OnInit {
 
   stats: any;
   timeStats: any;
+  timeStats1: any;
+  timeStats2: any;
+  timeStats3: any;
 
   numYear: number;
   numMonth: number;
@@ -25,14 +28,21 @@ export class ReportsComponent implements OnInit {
   formGroup: FormGroup;
 
   // options
+  view: any[] = [400, 400];
   showXAxis = true;
   showYAxis = true;
   gradient = false;
-  showLegend = true;
+  showLegend = false;
   showXAxisLabel = true;
-  xAxisLabel = 'Typ zdarzenia';
   showYAxisLabel = true;
-  yAxisLabel = 'Liczba zgłoszeń';
+  yAxisLabel1 = 'Liczba zgłoszeń';
+  yAxisLabel2 = 'Czas w sekundach';
+  xAxisLabel1 = 'Sumy zgłoszeń w miesiącu';
+  xAxisLabel2 = 'Średni czas przydzielenia zespołu';
+  xAxisLabel3 = 'Średni czas od zgłoszenia do zakończenia akcji';
+  xAxisLabel4 = 'Średni czas od przydzielenia zespołu do zakończenia akcji';
+
+
 
   constructor(private tokenStorageService: TokenStorageService,
               private router: Router,
@@ -60,14 +70,51 @@ export class ReportsComponent implements OnInit {
   getStatistics(year, month) {
     this.gatewayService.getStatistics(year, month).subscribe(
       (res) => {
-        this.stats = res;
-        console.log(this.stats);
+        this.stats = new Array<{
+          name: string,
+          value: string
+        }>();
+        res.forEach(s => {
+          this.stats.push({
+            name: s.name,
+            value: s.count
+          });
+        });
       }
     );
     this.gatewayService.getTimeStatistics(year, month).subscribe(
       (res) => {
         this.timeStats = res;
-        console.log(this.timeStats);
+        this.timeStats1 = new Array<{
+          name: string,
+          value: string
+        }>();
+        this.timeStats.filter(s => s.statisticType === 1).forEach(s => {
+          this.timeStats1.push({
+            name: s.emergencyType,
+            value: this.getSeconds(s.timeAverage)
+          });
+        });
+        this.timeStats2 = new Array<{
+          name: string,
+          value: string
+        }>();
+        this.timeStats.filter(s => s.statisticType === 2).forEach(s => {
+          this.timeStats2.push({
+            name: s.emergencyType,
+            value: this.getSeconds(s.timeAverage)
+          });
+        });
+        this.timeStats3 = new Array<{
+          name: string,
+          value: string
+        }>();
+        this.timeStats.filter(s => s.statisticType === 3).forEach(s => {
+          this.timeStats3.push({
+            name: s.emergencyType,
+            value: this.getSeconds(s.timeAverage)
+          });
+        });
       }
     );
   }
@@ -76,5 +123,14 @@ export class ReportsComponent implements OnInit {
     this.numYear = this.formGroup.value.year;
     this.numMonth = this.formGroup.value.month;
     this.getStatistics(this.numYear, this.numMonth);
+  }
+
+  getSeconds(time: string): number {
+    const h = parseInt(time.substr(0, 2), 10);
+    const m = parseInt(time.substr(4, 6), 10);
+    const s = parseInt(time.substr(8, 10), 10);
+    const ms = parseInt(time.substr(12, 14), 10);
+
+    return (h * 3600) + (m * 60) + s + (ms * 0.001);
   }
 }
