@@ -46,5 +46,17 @@ namespace Restpirators.Analyzer.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
+        [HttpGet, Description("Get all history emergencies")]
+        public IActionResult GetAllEmergencies()
+        {
+            try
+            {
+                return Ok(_emergenciesRepository.GetAllEmergencies());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
     }
 }

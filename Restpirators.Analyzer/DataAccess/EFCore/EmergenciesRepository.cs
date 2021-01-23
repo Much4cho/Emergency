@@ -15,21 +15,43 @@ namespace Restpirators.Analyzer.DataAccess.EFCore
         private readonly IMongoDatabase _database;
         public EmergenciesRepository(IMongoDatabase db)
         {
-            //var client = new MongoClient();
             _database = db;
+            CheckEmergencyTypes();
         }
+
+        private void CheckEmergencyTypes()
+        {
+            var et = _database.GetCollection<EmergencyType>("EmergencyTypes");
+            if (et.CountDocuments(x => true) == 0)
+            {
+                List<EmergencyType> emergencyTypes = new List<EmergencyType>()
+                {
+                    new EmergencyType() { Id = 1, Name = "Wypadek samochodowy" },
+                    new EmergencyType() { Id = 2, Name = "Porażenie prądem" },
+                    new EmergencyType() { Id = 3, Name = "Utonięcie" },
+                    new EmergencyType() { Id = 4, Name = "Pobicie" },
+                    new EmergencyType() { Id = 5, Name = "Zachłyśnięcie" },
+                    new EmergencyType() { Id = 6, Name = "Oparzenie" },
+                    new EmergencyType() { Id = 7, Name = "Zawał" },
+                    new EmergencyType() { Id = 8, Name = "Omdlenie" },
+                    new EmergencyType() { Id = 9, Name = "Wylew" },
+                };
+                et.InsertMany(emergencyTypes);
+            }
+        }
+
         public IEnumerable<DtoQuantityStatistic> GetEmergencyQuantityStatistics(int? year, int? month)
         {
             var col = _database.GetCollection<EmergencyHistory>("Statistics");
             List<BsonDocument> pipeline = new List<BsonDocument>();
-            pipeline.Add(new BsonDocument("$match", new BsonDocument("Status", 4)));
+            pipeline.Add(new BsonDocument("$match", new BsonDocument("Status", 1)));
             pipeline.Add(new BsonDocument
                 {
                     {
                         "$project",
                         new BsonDocument
                             {
-                                {"_id", 0},
+                                {"_id", 1},
                                 {"year", new BsonDocument("$year", "$ModDate")},
                                 {"month", new BsonDocument("$month", "$ModDate")},
                                 {"EmergencyTypeId", "$EmergencyTypeId" }
@@ -59,8 +81,8 @@ namespace Restpirators.Analyzer.DataAccess.EFCore
                         }
                 }
                 });
-            pipeline.Add(new BsonDocument { { "$lookup", new BsonDocument { { "from", "EmergencyTypes" }, { "localField", "_id.Type" }, { "foreignField", "Id" }, { "as", "type" } } } });
-            pipeline.Add(new BsonDocument { { "$unwind", "$type"} });
+            pipeline.Add(new BsonDocument { { "$lookup", new BsonDocument { { "from", "EmergencyTypes" }, { "localField", "_id.Type" }, { "foreignField", "_id" }, { "as", "type" } } } });
+            pipeline.Add(new BsonDocument { { "$unwind", "$type" } });
             pipeline.Add(new BsonDocument
                 {
                     {
@@ -91,7 +113,7 @@ namespace Restpirators.Analyzer.DataAccess.EFCore
                         "$project",
                         new BsonDocument
                             {
-                                {"_id", 0},
+                                {"_id", 1},
                                 {"year", new BsonDocument("$year", "$ModDate")},
                                 {"month", new BsonDocument("$month", "$ModDate")},
                                 {"EmergencyTypeId", 1 },
@@ -108,7 +130,7 @@ namespace Restpirators.Analyzer.DataAccess.EFCore
                     criterias.Add(new BsonDocument("$match", new BsonDocument("month", month)));
                 criterias.AddRange(new[]
                 {
-                new BsonDocument { { "$lookup", new BsonDocument { { "from", "EmergencyTypes" }, { "localField", "EmergencyTypeId" }, { "foreignField", "Id" }, { "as", "type" } } } },
+                new BsonDocument { { "$lookup", new BsonDocument { { "from", "EmergencyTypes" }, { "localField", "EmergencyTypeId" }, { "foreignField", "_id" }, { "as", "type" } } } },
                 new BsonDocument { { "$unwind", "$type" } },
                 new BsonDocument
                 {
@@ -297,6 +319,10 @@ namespace Restpirators.Analyzer.DataAccess.EFCore
         {
             var col = _database.GetCollection<EmergencyHistory>("Statistics");
             col.InsertOne(emergencyHistory);
+        }
+        public IEnumerable<EmergencyHistory> GetAllEmergencies()
+        {
+            return _database.GetCollection<EmergencyHistory>("Statistics").Find(x => true).ToList();
         }
     }
 }

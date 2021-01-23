@@ -10,5 +10,6 @@ namespace Restpirators.Analyzer.DataAccess
         IEnumerable<DtoQuantityStatistic> GetEmergencyQuantityStatistics(int? year, int? month);
         IEnumerable<DtoTimeStatistic> GetEmergencyTimeStatistics(int? year, int? month);
         void InsertEmergencyHistory(EmergencyHistory emergencyHistory);
+        IEnumerable<EmergencyHistory> GetAllEmergencies();
     }
 }

@@ -73,7 +73,7 @@ namespace Restpirators.Analyzer
                       }
                     });
             });
-            services.AddHostedService<ReceiverService>(); 
+            services.AddHostedService<ReceiverService>();
             services.AddScoped<IScopedProcessingService, ScopedProcessingService>();
         }
 

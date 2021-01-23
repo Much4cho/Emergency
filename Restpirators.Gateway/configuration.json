@@ -11,7 +11,11 @@
       ],
       "UpstreamPathTemplate": "/statistics",
       "UpstreamHttpMethod": [ "GET" ],
-      "SwaggerKey": "statistics"
+      "SwaggerKey": "statistics",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
     },
     {
       "DownstreamPathTemplate": "/statistics/{year}/{month}",

@@ -1,4 +1,5 @@
-﻿using Restpirators.Analyzer.Enums;
+﻿using MongoDB.Bson;
+using Restpirators.Analyzer.Enums;
 using Restpirators.Common.Enums;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ namespace Restpirators.Analyzer.Models
 {
     public class EmergencyHistory
     {
+        public ObjectId _id { get; set; }
         public int EmergencyId { get; set; }
         public int EmergencyTypeId { get; set; }
         public EmergencyStatus Status { get; set; }
