@@ -1,0 +1,85 @@
+<mat-card>
+  <form [formGroup]="formGroup">
+    <mat-form-field>
+      <mat-label> Rok </mat-label>
+      <mat-select matInput formControlName="year">
+        <mat-option *ngFor="let year of years" [value]="year">
+          {{year}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label> Miesiąc </mat-label>
+      <mat-select matInput formControlName="month">
+        <mat-option *ngFor="let month of months" [value]="month">
+        {{month}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!formGroup.valid"
+      (click)="submitForm()"> Generuj raport </button>
+  </form>
+</mat-card>
+
+<mat-grid-list cols="2" rowHeight="500px">
+  <mat-grid-tile>
+    <ngx-charts-bar-vertical
+      [view]="view"
+      [results]="stats"
+      [gradient]="gradient"
+      [xAxis]="showXAxis"
+      [yAxis]="showYAxis"
+      [legend]="showLegend"
+      [showXAxisLabel]="showXAxisLabel"
+      [showYAxisLabel]="showYAxisLabel"
+      [xAxisLabel]="xAxisLabel1"
+      [yAxisLabel]="yAxisLabel1">
+    </ngx-charts-bar-vertical>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <ngx-charts-bar-vertical
+      [view]="view"
+      [results]="timeStats1"
+      [gradient]="gradient"
+      [xAxis]="showXAxis"
+      [yAxis]="showYAxis"
+      [legend]="showLegend"
+      [showXAxisLabel]="showXAxisLabel"
+      [showYAxisLabel]="showYAxisLabel"
+      [xAxisLabel]="xAxisLabel2"
+      [yAxisLabel]="yAxisLabel2">
+    </ngx-charts-bar-vertical>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <ngx-charts-bar-vertical
+      [view]="view"
+      [results]="timeStats3"
+      [gradient]="gradient"
+      [xAxis]="showXAxis"
+      [yAxis]="showYAxis"
+      [legend]="showLegend"
+      [showXAxisLabel]="showXAxisLabel"
+      [showYAxisLabel]="showYAxisLabel"
+      [xAxisLabel]="xAxisLabel4"
+      [yAxisLabel]="yAxisLabel2">
+</ngx-charts-bar-vertical>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <ngx-charts-bar-vertical
+      [view]="view"
+      [results]="timeStats2"
+      [gradient]="gradient"
+      [xAxis]="showXAxis"
+      [yAxis]="showYAxis"
+      [legend]="showLegend"
+      [showXAxisLabel]="showXAxisLabel"
+      [showYAxisLabel]="showYAxisLabel"
+      [xAxisLabel]="xAxisLabel3"
+      [yAxisLabel]="yAxisLabel2">
+    </ngx-charts-bar-vertical>
+  </mat-grid-tile>
+
+
+
+
+

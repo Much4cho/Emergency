@@ -5,11 +5,11 @@
   <a *ngIf="isLoggedIn" mat-list-item routerLinkActive="list-item-active" routerLink="/home/personnel">
     <mat-icon>medical_services</mat-icon>Dyspozytor
   </a>
-  <a *ngIf="isLoggedIn" mat-list-item routerLinkActive="list-item-active" routerLink="/home/reports">
-    <mat-icon>insert_chart</mat-icon>Raporty
-  </a>
   <a *ngIf="isLoggedIn" mat-list-item routerLinkActive="list-item-active" routerLink="/home/teams">
     <mat-icon>group</mat-icon>Zespoły ratunkowe
+  </a>
+  <a *ngIf="isLoggedIn" mat-list-item routerLinkActive="list-item-active" routerLink="/home/reports">
+    <mat-icon>insert_chart</mat-icon>Raporty
   </a>
   <a *ngIf="!isLoggedIn" mat-list-item routerLinkActive="list-item-active" routerLink="/home/login">
     <mat-icon>login</mat-icon>Zaloguj

@@ -42,4 +42,12 @@ export class GatewayService {
   getEmergencyStatus(identifier): Observable<any> {
     return this.http.get<any>(environment.gatewayUrl + '/emergency/' + identifier);
   }
+
+  getStatistics(year: number, month: number): Observable<any> {
+    return this.http.get<any>(environment.gatewayUrl + '/statistics/' + year + '/' + month);
+  }
+
+  getTimeStatistics(year: number, month: number): Observable<any> {
+    return this.http.get<any>(environment.gatewayUrl + '/statistics/getTimeStatistics/' + year + '/' + month);
+  }
 }
