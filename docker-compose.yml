@@ -10,9 +10,14 @@ services:
       - RABBITMQ_DEFAULT_USER=guest
       - RABBITMQ_DEFAULT_PASS=guest
     image: rabbitmq:3-management-alpine
+    deploy:
+      replicas: 1
 
   webapp:
     container_name: webapp
+    image: emergency-web-client
+    deploy:
+      replicas: 1
     build:
       context: .
       dockerfile: ./emergency-web-client/Dockerfile
@@ -25,6 +30,8 @@ services:
   mongodb:
     container_name: mongodb
     image: mongo
+    deploy:
+      replicas: 1
     restart: always
     environment:
       - MONGO_DATA_DIR=/data/db
@@ -36,6 +43,9 @@ services:
     container_name: client
     ports: 
       - 5000:80
+    image: client
+    deploy:
+      replicas: 1
     build: 
       context: .
       dockerfile: ./Restpirators.Client/Dockerfile
@@ -47,6 +57,9 @@ services:
     container_name: dispatcher
     ports: 
       - 5001:80
+    image: dispatcher
+    deploy:
+      replicas: 1
     build: 
       context: .
       dockerfile: ./Restpirators.Dispatcher/Dockerfile
@@ -58,6 +71,9 @@ services:
     container_name: analyzer
     ports: 
       - 5002:80
+    image: analyzer
+    deploy:
+      replicas: 1
     build:
       context: .
       dockerfile: ./Restpirators.Analyzer/Dockerfile
@@ -70,6 +86,9 @@ services:
     container_name: auth
     ports: 
       - 5004:80
+    image: auth
+    deploy:
+      replicas: 1
     build:
       context: .
       dockerfile: ./Restpirators.Auth/Dockerfile
@@ -81,6 +100,9 @@ services:
     container_name: gateway
     ports: 
       - 5003:80
+    image: gateway 
+    deploy:
+      replicas: 1
     build:
       context: .
       dockerfile: ./Restpirators.Gateway/Dockerfile
@@ -92,6 +114,8 @@ services:
 
   prometheus:
     image: prom/prometheus:latest
+    deploy:
+      replicas: 1
     container_name: monitoring_prometheus
     restart: unless-stopped
     volumes:
@@ -106,6 +130,8 @@ services:
       
   grafana:
     image: grafana/grafana:latest
+    deploy:
+      replicas: 1
     container_name: monitoring_grafana
     restart: unless-stopped
     links:
