@@ -74,6 +74,7 @@ namespace Restpirators.Analyzer
                     });
             });
             services.AddHostedService<ReceiverService>();
+            services.AddHostedService<KaffkaProducer>();
             services.AddScoped<IScopedProcessingService, ScopedProcessingService>();
         }
 
