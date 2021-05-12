@@ -6,6 +6,7 @@ import {ReportsComponent} from './pages/reports/reports.component';
 import {PersonnelComponent} from './pages/personnel/personnel.component';
 import {LoginComponent} from './pages/personnel/login/login.component';
 import { TeamsComponent } from './pages/teams/teams.component';
+import { KafkaComponent } from './pages/kafka/kafka.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,10 @@ const routes: Routes = [
         path: 'login',
         component: LoginComponent
       },
+      {
+        path: 'kafka',
+        component: KafkaComponent
+      }
     ]
   },
   {

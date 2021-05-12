@@ -27,6 +27,7 @@ import { StatusComponent } from './client/status/status.component';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { KafkaComponent } from './kafka/kafka.component';
 
 
 
@@ -40,6 +41,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReportingComponent,
     TeamsComponent,
     StatusComponent,
+    KafkaComponent,
   ],
   imports: [
     CommonModule,
