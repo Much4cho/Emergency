@@ -23,7 +23,7 @@ namespace Restpirators.Analyzer.Helpers
             for (var i = 0; i < 10000; ++i)
             {
                 var value = (new Random().NextDouble() * (35 + 30)) - 30;
-                await _producer.ProduceAsync("xxxxxx", new Message<Null, string>()
+                await _producer.ProduceAsync("topic", new Message<Null, string>()
                 {
                     Value = value.ToString()
                 }, stoppingToken);

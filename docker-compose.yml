@@ -1,184 +1,184 @@
 version: "3.7"
 services: 
-  # rabbitmq:
-  #   hostname: rabbitmq
-  #   container_name: rabbitmq
-  #   ports: 
-  #     - 5672:5672
-  #     - 15672:15672
-  #   environment: 
-  #     - RABBITMQ_DEFAULT_USER=guest
-  #     - RABBITMQ_DEFAULT_PASS=guest
-  #   image: rabbitmq:3-management-alpine
-  #   deploy:
-  #     replicas: 1
 
-  # webapp:
-  #   container_name: webapp
-  #   image: emergency-web-client
-  #   deploy:
-  #     replicas: 1
-  #   build:
-  #     context: .
-  #     dockerfile: ./emergency-web-client/Dockerfile
-  #   volumes:
-  #     - './emergency-web-client:/app'
-  #     - '/app/node_modules'
-  #   ports:
-  #     - '4200:4200'
-      
-  # mongodb:
-  #   container_name: mongodb
-  #   image: mongo
-  #   deploy:
-  #     replicas: 1
-  #   restart: always
-  #   environment:
-  #     - MONGO_DATA_DIR=/data/db
-  #     - MONGO_LOG_DIR=/dev/null
-  #   ports:
-  #     - 27018:27017
-
-  # client:
-  #   container_name: client
-  #   ports: 
-  #     - 5000:80
-  #   image: client
-  #   deploy:
-  #     replicas: 1
-  #   build: 
-  #     context: .
-  #     dockerfile: ./Restpirators.Client/Dockerfile
-  #   restart: on-failure
-  #   depends_on: 
-  #     - rabbitmq
-# 
-  # dispatcher:
-  #   container_name: dispatcher
-  #   ports: 
-  #     - 5001:80
-  #   image: dispatcher
-  #   deploy:
-  #     replicas: 1
-  #   build: 
-  #     context: .
-  #     dockerfile: ./Restpirators.Dispatcher/Dockerfile
-  #   restart: on-failure
-  #   depends_on: 
-  #     - rabbitmq
-
-  # analyzer:
-  #   container_name: analyzer
-  #   ports: 
-  #     - 5002:80
-  #   image: analyzer
-  #   deploy:
-  #     replicas: 1
-  #   build:
-  #     context: .
-  #     dockerfile: ./Restpirators.Analyzer/Dockerfile
-  #   restart: on-failure
-  #   depends_on: 
-  #     - rabbitmq
-  #     - mongodb
-  #     - kafka
-
-  # auth:
-  #   container_name: auth
-  #   ports: 
-  #     - 5004:80
-  #   image: auth
-  #   deploy:
-  #     replicas: 1
-  #   build:
-  #     context: .
-  #     dockerfile: ./Restpirators.Auth/Dockerfile
-  #   restart: on-failure
-  #   depends_on: 
-  #     - mongodb
-
-  # gateway:
-  #   container_name: gateway
-  #   ports: 
-  #     - 5003:80
-  #   image: gateway 
-  #   deploy:
-  #     replicas: 1
-  #   build:
-  #     context: .
-  #     dockerfile: ./Restpirators.Gateway/Dockerfile
-  #   depends_on: 
-  #     - client
-  #     - dispatcher
-  #     - analyzer
-  #     - auth 
-
-  # prometheus:
-  #   image: prom/prometheus:latest
-  #   deploy:
-  #     replicas: 1
-  #   container_name: monitoring_prometheus
-  #   restart: unless-stopped
-  #   volumes:
-  #     - ./data/prometheus/config:/etc/prometheus/
-  #     - ./data/prometheus/data:/prometheus
-  #   command:
-  #     - '--config.file=/etc/prometheus/prometheus.yml'
-  #   expose:
-  #     - 9090
-  #   ports:
-  #     - 9090:9090
-      
-  # grafana:
-  #   image: grafana/grafana:latest
-  #   deploy:
-  #     replicas: 1
-  #   container_name: monitoring_grafana
-  #   restart: unless-stopped
-  #   links:
-  #     - prometheus:prometheus
-  #   volumes:
-  #     - ./data/grafana:/var/lib/grafana
-
-  # kafka:
-  #   image: confluentinc/cp-kafka:6.1.0
-  #   container_name: kafka
-  #   depends_on:
-  #     - zookeeper
-  #   ports:
-  #     - 9092:9092
-  #   environment:
-  #     KAFKA_BROKER_ID: 1
-  #     KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-  #     KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
-  #     KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
-  #     KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
-  #     KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
-  #     KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-  #     KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
-  #     KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
-  #     KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 100
-
-  # zookeeper:
-  #   image: "confluentinc/cp-zookeeper"
-  #   container_name: zookeeper
-  #   ports:
-  #     - 2181:2181
-  #   environment:
-  #     ZOOKEEPER_TICK_TIME: 2000
-  #     ZOOKEEPER_CLIENT_PORT: 2181
-
-  kafka-server:
-    container_name: kafka-server
+  consumer:
+    container_name: consumer
     build:
       context: .
-      dockerfile: ./kafka-server/Dockerfile
-    working_dir: /kafka-server
+      dockerfile: ./consumer/Dockerfile
+    working_dir: /consumer
     ports:
       - 8081:8081
     volumes:
-      - './kafka-server:/kafka-server'
+      - './consumer:/consumer'
     command: mvn clean spring-boot:run
+    deploy:
+      replicas: 1
 
-        # depends_on:
-      # - kafka
+  rabbitmq:
+    hostname: rabbitmq
+    container_name: rabbitmq
+    ports: 
+      - 5672:5672
+      - 15672:15672
+    environment: 
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    image: rabbitmq:3-management-alpine
+    deploy:
+      replicas: 1
+
+  webapp:
+    container_name: webapp
+    image: emergency-web-client
+    deploy:
+      replicas: 1
+    build:
+      context: .
+      dockerfile: ./emergency-web-client/Dockerfile
+    volumes:
+      - './emergency-web-client:/app'
+      - '/app/node_modules'
+    ports:
+      - '4200:4200'
+      
+  mongodb:
+    container_name: mongodb
+    image: mongo
+    deploy:
+      replicas: 1
+    restart: always
+    environment:
+      - MONGO_DATA_DIR=/data/db
+      - MONGO_LOG_DIR=/dev/null
+    ports:
+      - 27018:27017
+
+  client:
+    container_name: client
+    ports: 
+      - 5000:80
+    image: client
+    deploy:
+      replicas: 1
+    build: 
+      context: .
+      dockerfile: ./Restpirators.Client/Dockerfile
+    restart: on-failure
+    depends_on: 
+      - rabbitmq
+
+  dispatcher:
+    container_name: dispatcher
+    ports: 
+      - 5001:80
+    image: dispatcher
+    deploy:
+      replicas: 1
+    build: 
+      context: .
+      dockerfile: ./Restpirators.Dispatcher/Dockerfile
+    restart: on-failure
+    depends_on: 
+      - rabbitmq
+
+  analyzer:
+    container_name: analyzer
+    ports: 
+      - 5002:80
+    image: analyzer
+    deploy:
+      replicas: 1
+    build:
+      context: .
+      dockerfile: ./Restpirators.Analyzer/Dockerfile
+    restart: on-failure
+    depends_on: 
+      - rabbitmq
+      - mongodb
+      - kafka
+
+  auth:
+    container_name: auth
+    ports: 
+      - 5004:80
+    image: auth
+    deploy:
+      replicas: 1
+    build:
+      context: .
+      dockerfile: ./Restpirators.Auth/Dockerfile
+    restart: on-failure
+    depends_on: 
+      - mongodb
+
+  gateway:
+    container_name: gateway
+    ports: 
+      - 5003:80
+    image: gateway 
+    deploy:
+      replicas: 1
+    build:
+      context: .
+      dockerfile: ./Restpirators.Gateway/Dockerfile
+    depends_on: 
+      - client
+      - dispatcher
+      - analyzer
+      - auth 
+
+  prometheus:
+    image: prom/prometheus:latest
+    deploy:
+      replicas: 1
+    container_name: monitoring_prometheus
+    restart: unless-stopped
+    volumes:
+      - ./data/prometheus/config:/etc/prometheus/
+      - ./data/prometheus/data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    expose:
+      - 9090
+    ports:
+      - 9090:9090
+      
+  grafana:
+    image: grafana/grafana:latest
+    deploy:
+      replicas: 1
+    container_name: monitoring_grafana
+    restart: unless-stopped
+    links:
+      - prometheus:prometheus
+    volumes:
+      - ./data/grafana:/var/lib/grafana
+
+  kafka:
+    image: confluentinc/cp-kafka:6.1.0
+    container_name: kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - 9092:9092
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 100
+
+  zookeeper:
+    image: "confluentinc/cp-zookeeper"
+    container_name: zookeeper
+    ports:
+      - 2181:2181
+    environment:
+      ZOOKEEPER_TICK_TIME: 2000
+      ZOOKEEPER_CLIENT_PORT: 2181

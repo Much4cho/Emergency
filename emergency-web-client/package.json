@@ -21,6 +21,7 @@
     "@angular/platform-browser": "~11.1.0",
     "@angular/platform-browser-dynamic": "~11.1.0",
     "@angular/router": "~11.1.0",
+    "@ngxs/websocket-plugin": "^3.7.1",
     "@swimlane/ngx-charts": "^17.0.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
