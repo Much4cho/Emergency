@@ -1,8 +1,11 @@
-# Emergency.Analyzer
+## Diagram
+![diagram](https://github.com/Much4cho/Restpirators/blob/master/diagram.png)
 
-# Emergency.Client
-
-# Emergency.Dispatcher
-
-# Emergency.Gateway
-Configures all services to be available from 1 endpoint
+## Uruchamianie w środowisku lokalnym
+```
+docker-compose up
+```
+## Deplyment 
+```
+// TODO
+```
