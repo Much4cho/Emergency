@@ -7,5 +7,12 @@ docker-compose up
 ```
 ## Deplyment 
 ```
-// TODO
+docker swarm init
+```
+dołączanie worker nodeów:
+```
+docker swarm join --token <token> <IP>:2377
+```
+```
+docker stack deploy --compose-file .\docker-compose.yml <stack-name>
 ```
