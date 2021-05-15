@@ -1,8 +1,13 @@
 ﻿using Confluent.Kafka;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
+using Streamiz.Kafka.Net;
+using Streamiz.Kafka.Net.SerDes;
+using Streamiz.Kafka.Net.Stream;
+using Streamiz.Kafka.Net.Table;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Threading;
@@ -14,21 +19,26 @@ namespace Restpirators.Analyzer.Helpers
     {
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            var config = new ProducerConfig()
+            var pconfig = new ProducerConfig()
             {
                 BootstrapServers = "kafka:29092",
-
             };
-            var _producer = new ProducerBuilder<Null, string>(config).Build();
-            for (var i = 0; i < 10000; ++i)
+            var _producer = new ProducerBuilder<int, string>(pconfig).Build();
+            var id = 1;
+            while(true)
             {
-                var value = (new Random().NextDouble() * (35 + 30)) - 30;
-                await _producer.ProduceAsync("topic", new Message<Null, string>()
+                for (var i = 1; i <= 1000; ++i)
                 {
-                    Value = value.ToString()
-                }, stoppingToken);
-            }
-            _producer.Flush(TimeSpan.FromSeconds(10));
+                    var value = new Random().Next(0, 100);
+                    var json = JsonConvert.SerializeObject(new { Id = id, Temperature = value });
+                    await _producer.ProduceAsync("test", new Message<int, string>()
+                    {
+                        Key = id,
+                        Value = json
+                    }, stoppingToken);
+                }
+                id++;
+            }    
         }
     }
 }
