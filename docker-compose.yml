@@ -12,6 +12,7 @@ services:
     volumes:
       - './consumer:/consumer'
     command: mvn clean spring-boot:run
+    image: consumer
     deploy:
       replicas: 1
 
