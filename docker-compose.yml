@@ -216,3 +216,17 @@ services:
       - ksqldb-server
     entrypoint: /bin/sh
     tty: true
+
+  kafka-setup:
+    image: confluentinc/cp-kafka:6.1.0
+    hostname: kafka-setup
+    container_name: kafka-setup
+    depends_on:
+      - kafka
+    command: "bash -c 'echo Waiting for Kafka to be ready... && \
+                         cub kafka-ready -b kafka:29092 1 20 && \
+                         kafka-topics --create --if-not-exists --zookeeper zookeeper:2181 --partitions 1 --replication-factor 1 --topic test && \
+                         kafka-topics --create --if-not-exists --zookeeper zookeeper:2181 --partitions 1 --replication-factor 1 --topic output_temperatures'"
+    environment:
+      KAFKA_BROKER_ID: ignored
+      KAFKA_ZOOKEEPER_CONNECT: ignored
