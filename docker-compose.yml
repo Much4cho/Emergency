@@ -29,19 +29,20 @@ services:
     deploy:
       replicas: 1
 
-  webapp:
-    container_name: webapp
-    image: emergency-web-client
-    deploy:
-      replicas: 1
-    build:
-      context: .
-      dockerfile: ./emergency-web-client/Dockerfile
-    volumes:
-      - './emergency-web-client:/app'
-      - '/app/node_modules'
-    ports:
-      - '4200:4200'
+      # UNCOMMENT IF YOU WANT TO USE WEBAPP
+  # webapp:
+  #   container_name: webapp
+  #   image: emergency-web-client
+  #   deploy:
+  #     replicas: 1
+  #   build:
+  #     context: .
+  #     dockerfile: ./emergency-web-client/Dockerfile
+  #   volumes:
+  #     - './emergency-web-client:/app'
+  #     - '/app/node_modules'
+  #   ports:
+  #     - '4200:4200'
       
   mongodb:
     container_name: mongodb
