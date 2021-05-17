@@ -29,11 +29,10 @@ public class ConsumerApplication {
 
         private CountDownLatch latch = new CountDownLatch(10);
 
-        @KafkaListener(topics = "topic")
+        @KafkaListener(topics = "output_temperatures")
         public void listen(String message) {
             System.out.println("Received Message: " + message);
             latch.countDown();
         }
-
     }
 }

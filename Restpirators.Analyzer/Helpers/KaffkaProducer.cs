@@ -31,6 +31,7 @@ namespace Restpirators.Analyzer.Helpers
                 {
                     var value = new Random().Next(0, 100);
                     var json = JsonConvert.SerializeObject(new { Id = id, Temperature = value });
+                    Console.WriteLine("Produced value: " + value);
                     await _producer.ProduceAsync("test", new Message<int, string>()
                     {
                         Key = id,
