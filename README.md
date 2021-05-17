@@ -7,6 +7,27 @@ Cała aplikacja jest REST'owym API korzystającym z protokołu HTTP. Dane są pr
 ```
 docker-compose up
 ```
+### Sprawdzanie logów
+#### producer
+```
+docker-compose logs | grep "Produced"
+```
+output:
+```
+analyzer         | Produced value: 20
+analyzer         | Produced value: 64
+analyzer         | Produced value: 68
+analyzer         | Produced value: 3
+```
+#### consumer
+```
+docker-compose logs | grep "Received Message"
+```
+output (średnia liczona co 1000 wyprodukowanych wartości):
+```
+consumer         | Received Message: {"AVG":50.868}
+consumer         | Received Message: {"AVG":48.924}
+```
 ## Deplyment 
 ```
 docker swarm init
